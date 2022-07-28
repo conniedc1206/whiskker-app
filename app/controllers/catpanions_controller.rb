@@ -1,0 +1,2 @@
+class CatpanionsController < ApplicationController
+end
