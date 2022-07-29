@@ -1,17 +1,16 @@
 class User < ApplicationRecord
-    has_many :meow_posts 
+    has_secure_password
+    
+    has_many :meow_posts
     
     has_many :comments
-    has_many :commented_posts, through: :comments, source: 'MeowPost'
+    has_many :commented_posts, through: :comments, source: :meow_post
+    # example of how to use alias name: has_many :alias_name, through: :model_name, source: :initial_name
 
-    has_many :catpanions
-    has_many :meow_mails
+    has_many :initiated_relationships, foreign_key: :initiator_id, class_name: 'Catpanion'
+    has_many :receivers, through: :initiated_relationships
 
-    # give us all the catpanion instances where I am the initiator
-    has_many :initiated_catpanions, foreign_key: :initiator_id, class_name: 'Catpanion'
-    has_many :receivers, through: :initiated_catpanions, source: :receiver
+    has_many :receiver_of_relationships, foreign_key: :receiver_id, class_name: 'Catpanion'
+    has_many :initiators, through: :receiver_of_relationships
 
-    # give us all the catpanion instances where I am the receiver
-    has_many :received_catpanions, foreign_key: :receiver_id, class_name: 'Catpanion' 
-    has_many :initiators, through: :received_catpanions, source: :initiator
 end
