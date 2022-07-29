@@ -4,7 +4,7 @@ import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem
 import { useState } from "react"
 
 
-export default function Navbar () {
+export default function Navbar ({currentUser}) {
     
 // Material UI
 const [open, setOpen] = useState(false)
@@ -17,18 +17,19 @@ const [open, setOpen] = useState(false)
   })
 
   const Icons = styled(Box)(({ theme }) => ({
-    // backgroundColor: "grey",
     display:"flex" , alignItems:"center" , gap:"40px"
-    // padding:
   }))
 
+  // if currentUser == false, then render "Already Have an Account?" Login button/route
+  
+  // if currentUser == true, then render ...
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{backgroundColor:"#33691e"}}>
       {/* <Toolbar> */}
         <StyledToolbar>
           <Typography variant="h6" sx={{ display: {xs: "none", sm:"block" } }}>
-            Whiskerr App
+            Whiskker App
             </Typography>
               <Pets sx={{ display: { xs: "block", sm: "none" } }} />
           <Icons>
