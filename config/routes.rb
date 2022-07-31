@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :meow_mails, except: [:update]
+  resources :meow_mails, only: [:index, :create, :destroy]
   resources :catpanions, only: []
   resources :comments, only: [:index, :create, :destroy]
   resources :meow_posts

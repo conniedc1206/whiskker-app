@@ -1,6 +1,11 @@
 class MeowMailsController < ApplicationController
 
-    # Show all messages between two CATPANIONS
+    # Show all messages between two CATPANIONS.
+
+    #EXAMPLE: If I send a message to a user with the ID of 10:
+    # - My messages: Display all SENT messages where the RECIPIENT_ID is 10
+    # - Thier messages: Display all RECIEVED messages where the SENDER_ID is 10
+    # MY ID DOES NOT MATTER FOR MY MESSAGES
 
     def index
         meowmails = MeowMail.all

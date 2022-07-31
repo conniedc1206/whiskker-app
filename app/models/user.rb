@@ -18,7 +18,7 @@ class User < ApplicationRecord
     # MEOWMAILS
 
     has_many :sent_messages, class_name: "MeowMail", foreign_key: "sender_id"
-    has_many :receivers, through: :sent_messages
+    has_many :recipients, through: :sent_messages
 
     has_many :received_messages, class_name: "MeowMail", foreign_key: "recipient_id"
     has_many :senders, through: :recieved_messages
