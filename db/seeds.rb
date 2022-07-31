@@ -61,8 +61,8 @@ puts "Generating Meowmails..."
 20.times do
     MeowMail.create(
         message: Faker::Lorem.sentence,
-        catpanion_id: Catpanion.ids.sample,
-        user_id: User.ids.sample
+        recipient_id: User.ids.sample,
+        sender_id: User.ids.sample
     )
 end
 
