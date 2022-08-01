@@ -3,57 +3,56 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Grid, TextField, Button, InputAdornment, IconButton } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-// import PersonIcon from "@mui/icons-material/Person";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { Pets } from "@mui/icons-material";
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
 
+const defaultValues = {
+  full_name: '',
+  purrfile_picture: '',
+  bio: '',
+  username: '',
+  password: ''
+};
 
 export default function Signup( { updateUser }) {
-    const [formData, setFormData] = useState({
-        full_name: '',
-        purrfile_picture: '',
-        bio: '',
-        username: '',
-        password: ''
-    })
+    const [formData, setFormData] = useState(defaultValues)
     const [errors, setErrors] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
+
     const {username, password, purrfile_picture, bio, full_name} = formData
 
     function onSubmit(e){
-        e.preventDefault()
-        const user = {
-            full_name,
-            purrfile_picture, 
-            bio, 
-            username, 
-            password, 
-        }
-       
-        fetch('/users', {
-          method:'POST',
-          headers:{'Content-Type': 'application/json'},
-          body: JSON.stringify(user)
-        })
-        .then(res => {
-            if(res.ok){
-                res.json().then(user => {
-                    console.log(user)
-                    // set current user here
-                    updateUser(user)
-                    // need to route user to their newsfeed page/home page
-                    // navigate(`/users/${user.id}`)
-                })
-            } else {
-                res.json().then(json => setErrors(Object.entries(json.errors)))
-            }
-        })
+      e.preventDefault()
+      const user = {
+          full_name,
+          purrfile_picture, 
+          bio, 
+          username, 
+          password, 
+      }
+      fetch('/users', {
+        method:'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify(user)
+      })
+      .then(res => {
+          if(res.ok){
+              res.json().then(user => {
+                  console.log(user)
+                  // set current user here
+                  updateUser(user)
+                  // need to route user to their newsfeed page/home page
+                  navigate(`/users/${user.id}`)
+              })
+          } else {
+              res.json().then(json => setErrors(Object.entries(json.errors)))
+          }
+      })
+      setFormData(defaultValues)
     }
 
     const handleChange = (e) => {
@@ -193,7 +192,7 @@ export default function Signup( { updateUser }) {
               variant="contained"
               sx={{backgroundColor:"#33691e"}}
               component={RouterLink}
-              to="/login"
+              to="/"
             >
               Login Instead
             </Button>

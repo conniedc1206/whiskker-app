@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const defaultValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -18,6 +18,7 @@ export default function Login({ updateUser }) {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState([]);
   
   const navigate = useNavigate()
 
@@ -41,33 +42,33 @@ export default function Login({ updateUser }) {
       body: JSON.stringify({ ...formValues }),
     };
 
-    fetch("/users", configObj)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Incorrect CatMail or Pawsword. Try Again!');
-      })
-      .then((data) => navigate(`/users/${data.id}`))
-      .catch((error) => {
-        alert(error)
-      });
-
-      setFormValues(defaultValues);
+    fetch("/login", configObj)
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('Incorrect CatMail or Pawsword. Try Again!');
+    })
+    .then((user) => {
+      updateUser(user)
+      navigate(`/users/${user.id}`)
+    })
+    .catch((error) => {
+      alert(error)
+    })
+    setFormValues(defaultValues);
     };
-  // navigate(`/dashboard/${data.id}`)
 
   const handleClickShowPassword = () => {
     setShowPassword((currentState) => !currentState);
   };
 
-  
-
   return (
     <>
       <form onSubmit={handleSubmit}> 
       <Grid container alignItems="center" justify="center" direction="column" marginTop="2%">
-      <h2>Log in Whiskker</h2>
+      <h2>Log in to your account</h2>
+      <br></br>
         <Grid item sx={{ mb: 2 }}>
           <TextField
            InputLabelProps={{ shrink: true }}
@@ -78,11 +79,11 @@ export default function Login({ updateUser }) {
               </InputAdornment>
             ),
           }}
-            id="email"
-            name="email"
-            label="Email"
+            id="username"
+            name="username"
+            label="Username"
             type="text"
-            value={formValues.email}
+            value={formValues.username}
             onChange={handleChange}
             required
           />
@@ -120,12 +121,13 @@ export default function Login({ updateUser }) {
       </Grid>
     </form>
       <Grid container alignItems="center" justify="center" direction="column" sx={{mt: 2}}>
-        <Grid item>
-          <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/">
-            Sign up instead
+        <Grid item>New to Whiskker? 
+          <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/signup">
+            Sign Up
           </Button>
         </Grid>
       </Grid>
+      {errors? errors.map(error => <div> {error[0]} {error[1]} </div>) :null}
     </>
   );
 }

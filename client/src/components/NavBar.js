@@ -1,14 +1,26 @@
-import React from 'react'
+import { useState } from "react"
+import { useNavigate,  Link as RouterLink } from 'react-router-dom'
 import { Pets, Icons, Home, Message } from "@mui/icons-material";
 import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem } from "@mui/material"
-import { useState } from "react"
 
 
-export default function Navbar ({currentUser}) {
-    
+
+export default function Navbar ({updateUser}) { 
 // Material UI
 const [open, setOpen] = useState(false)
 
+const navigate = useNavigate();
+
+// logout button
+const handleLogOut = () => {
+  // DELETE `/logout`
+  fetch('/logout', {
+    method: 'DELETE'
+  })
+  updateUser(false)
+  navigate("/login")
+};
+  
 
 // Materail UI 
   const StyledToolbar = styled(Toolbar) ({
@@ -20,9 +32,6 @@ const [open, setOpen] = useState(false)
     display:"flex" , alignItems:"center" , gap:"40px"
   }))
 
-  // if currentUser == false, then render "Already Have an Account?" Login button/route
-  
-  // if currentUser == true, then render ...
 
   return (
     <AppBar position="sticky" sx={{backgroundColor:"#33691e"}}>
@@ -64,11 +73,9 @@ const [open, setOpen] = useState(false)
         }}
       >
         <MenuItem>Profile</MenuItem>
-        {/* onClick={handleClose} */}
         <MenuItem>My account</MenuItem>
-        {/* onClick={handleClose} */}
-        <MenuItem>Logout</MenuItem>
-        {/* onClick={handleClose} */}
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        {/* onClick={handleLogOut} */}
       </Menu>
 
       {/* </Toolbar> */}
