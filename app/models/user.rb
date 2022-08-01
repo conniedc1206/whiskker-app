@@ -1,6 +1,5 @@
 class User < ApplicationRecord
     has_secure_password
-    
 
     has_many :comments
     has_many :meow_posts, through: :comments
@@ -9,11 +8,11 @@ class User < ApplicationRecord
 
     # CATPANIONS
 
-    has_many :initiated_relationships, foreign_key: "initiator_id", class_name: 'Catpanion'
-    has_many :receivers, through: :initiated_relationships
+    has_many :requested_relationships, foreign_key: "requestor_id", class_name: 'Catpanion'
+    has_many :requestees, through: :requested_relationships
 
-    has_many :receiver_of_relationships, foreign_key: "receiver_id", class_name: 'Catpanion'
-    has_many :initiators, through: :receiver_of_relationships
+    has_many :requestees_of_relationships, foreign_key: "requestee_id", class_name: 'Catpanion'
+    has_many :requestors, through: :requestees_of_relationships
 
     # MEOWMAILS
 

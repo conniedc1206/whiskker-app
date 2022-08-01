@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :meow_mails, only: [:index, :create, :destroy]
-  resources :catpanions, only: []
+  resources :catpanions, only: [:index, :create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   resources :meow_posts
   resources :users, except: [:update] # Potentially add update

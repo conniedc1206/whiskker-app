@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
   enable_extension "plpgsql"
 
   create_table "catpanions", force: :cascade do |t|
-    t.integer "initiator_id"
-    t.integer "receiver_id"
+    t.integer "requestor_id"
+    t.integer "requestee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

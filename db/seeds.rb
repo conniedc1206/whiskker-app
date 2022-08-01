@@ -44,17 +44,17 @@ end
 
 puts "Connecting Catpanions..."
 Catpanion.create([
-    { initiator_id: 1, receiver_id: 10 },
-    { initiator_id: 1, receiver_id: 9 },
-    { initiator_id: 2, receiver_id: 8 },
-    { initiator_id: 3, receiver_id: 7 },
-    { initiator_id: 4, receiver_id: 6 },
-    { initiator_id: 5, receiver_id: 2 },
-    { initiator_id: 6, receiver_id: 1 },
-    { initiator_id: 7, receiver_id: 10 },
-    { initiator_id: 8, receiver_id: 9 },
-    { initiator_id: 9, receiver_id: 3 },
-    { initiator_id: 10, receiver_id: 5 }
+    { requestor_id: 1, requestee_id: 10 },
+    { requestor_id: 1, requestee_id: 9 },
+    { requestor_id: 2, requestee_id: 8 },
+    { requestor_id: 3, requestee_id: 7 },
+    { requestor_id: 4, requestee_id: 6 },
+    { requestor_id: 5, requestee_id: 2 },
+    { requestor_id: 6, requestee_id: 1 },
+    { requestor_id: 7, requestee_id: 10 },
+    { requestor_id: 8, requestee_id: 9 },
+    { requestor_id: 9, requestee_id: 3 },
+    { requestor_id: 10, requestee_id: 5 }
 ])
 
 puts "Generating Meowmails..."
