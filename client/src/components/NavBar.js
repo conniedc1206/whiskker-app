@@ -1,11 +1,17 @@
-import React from 'react'
-import { Pets, Icons, Home, Message } from "@mui/icons-material";
-import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem } from "@mui/material"
+import React from 'react';
+import NewsFeed from './NewsFeed.js';
+import CreatePost from "./CreatePost.js";
+import { Link as RouterLink } from 'react-router-dom'
+import Profile from "./Profile.js";
 import { useState } from "react"
+import { Pets, Icons, Home, Message } from "@mui/icons-material";
+import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem, Stack } from "@mui/material"
 
 
 export default function Navbar ({currentUser}) {
     
+
+  
 // Material UI
 const [open, setOpen] = useState(false)
 
@@ -25,8 +31,8 @@ const [open, setOpen] = useState(false)
   // if currentUser == true, then render ...
 
   return (
+    <div>
     <AppBar position="sticky" sx={{backgroundColor:"#33691e"}}>
-      {/* <Toolbar> */}
         <StyledToolbar>
           <Typography variant="h6" sx={{ display: {xs: "none", sm:"block" } }}>
             Whiskker App
@@ -63,15 +69,20 @@ const [open, setOpen] = useState(false)
           horizontal: 'right',
         }}
       >
-        <MenuItem>Profile</MenuItem>
+        <MenuItem component={RouterLink} to="/me"> Profile </MenuItem>
         {/* onClick={handleClose} */}
         <MenuItem>My account</MenuItem>
         {/* onClick={handleClose} */}
         <MenuItem>Logout</MenuItem>
         {/* onClick={handleClose} */}
       </Menu>
-
-      {/* </Toolbar> */}
     </AppBar>
+    <Box>
+      <Stack direction="column" alignItems="center" justifyContent="space-evenly" spacing={0.5}>
+    <NewsFeed/>
+    <CreatePost/>
+      </Stack>
+    </Box>
+    </div>
   )
 }

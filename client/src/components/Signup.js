@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Grid, TextField, Button, InputAdornment, IconButton } from "@mui/material"
+import { Grid, TextField, Button, InputAdornment, IconButton, Box, Paper, Avatar } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 // import PersonIcon from "@mui/icons-material/Person";
@@ -10,6 +10,9 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Pets } from "@mui/icons-material";
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
+import {createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 
 export default function Signup( { updateUser }) {
@@ -65,9 +68,22 @@ export default function Signup( { updateUser }) {
         setShowPassword((currentState) => !currentState);
     };
 
+    // Material UI 
+    // const theme = createTheme();
+    const paperStyle = {padding: 20, height: "100vh", width:500, margin: "100px auto"  }
+
   return (
-    <> 
-    <div>
+    <div style= {{ backgroundImage: 'url(https://st3.depositphotos.com/1177973/12632/i/950/depositphotos_126325932-stock-photo-many-cats-background.jpg)', 
+    backgroundSize: "cover",
+    position: "relative", 
+    // width: '100vh', 
+    // height: "100vh",
+    // backgroundPosition: "center",
+    // backgroundRepeat: 'no-repeat'
+    }}>
+      <Grid>
+        <Paper elevation={10} sx={{ backgroundColor: "white", opacity:"85%"}} style={paperStyle}>
+      <Box>
         <form onSubmit={onSubmit}>
           <Grid
             container
@@ -76,15 +92,17 @@ export default function Signup( { updateUser }) {
             direction="column"
             marginTop="2%"
           >
-            <h2>Sign up for free and experience Whiskker today!</h2>
             <br></br>
-            <Grid item marginBottom="1%">
+            <h2>Sign up and experience Whiskker today!</h2>
+            <br></br>
+            <br></br>
+            <Grid item marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <GiCat />
+                      <GiCat/>
                     </InputAdornment>
                   ),
                 }}
@@ -97,7 +115,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item marginBottom="1%">
+            <Grid item marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -116,7 +134,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item marginBottom="1%">
+            <Grid item marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -135,7 +153,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item marginBottom="1%">
+            <Grid item marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -154,7 +172,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item marginBottom="1%">
+            <Grid item marginBottom="5%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -199,10 +217,12 @@ export default function Signup( { updateUser }) {
             </Button>
           </Grid>
         </Grid>
-      </div>
+        </Box>
+            </Paper>
+        </Grid>
 
       {errors? errors.map(error => <div> {error[0]} {error[1]} </div>) :null}
-
-    </>
+    
+</div>
   )
 }
