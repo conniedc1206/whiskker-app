@@ -8,9 +8,11 @@ import SignupNavBar from "./SignupNavBar.js"
 import Catpanions from './Catpanions.js';
 import Profile from "./Profile.js";
 import Signup from "./Signup.js";
+import Message from "./Message.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false)
+  const [posts, setPosts] = useState([])
 
   // function for updating currentUser
   const updateUser = (user) => setCurrentUser(user)
@@ -23,6 +25,13 @@ function App() {
       updateUser(foundUser);
     }
   }, []);
+
+  //to fetch 1 user's object
+  useEffect(() => {
+    fetch("users/:id")
+    .then((res) => res.json())
+    .then((data) => setPosts(data));
+  }, []);
   
   return (
     <div className="App">
@@ -34,6 +43,7 @@ function App() {
         <Route path="/users/:id" element={<NewsFeed currentUser={currentUser}/>} />
         <Route path="/mycatpanions" element={<Catpanions/>} />
         <Route path="/me" element={<Profile/>} />
+        <Route path="/message" element={<Message posts={posts}/>}/>
       </Routes>
     </div>
   );
