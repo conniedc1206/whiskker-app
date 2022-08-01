@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     else 
       render json: "Invalid Credentials", status: :unauthorized
     end
-
   end
 
   # DELETE '/logout'
