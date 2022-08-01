@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewsFeedComments from "./NewsFeedComments.js";
 import Posts from "./Posts.js";
 import NavBar from "./NavBar.js";
@@ -9,7 +9,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-
 
 //Material UI
 const ExpandMore = styled((props) => {
@@ -24,78 +23,50 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function NewsFeed() {
-
   const [count, setCount] = useState(0);
-
-  
-
-
-    //Material UI
   const [expanded, setExpanded] = useState(false);
-  
+  const [allPosts, setAllPosts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [errors, setErrors] = useState(false)
+
   // Material UI, Heart on and off
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  useEffect(()=>{
+    fetch('/meow_posts')
+      .then(res => {
+        if(res.ok){
+          res.json().then(posts => {
+            setAllPosts(posts)
+            setLoading(false)
+          })
+        } else {
+          res.json().then(data => setErrors(data.error))
+        }
+    })
+  }, [])
+  
+  if(loading) return <h1>Loading...</h1>
+  if(errors) return <h1>{errors}</h1>
+
   return (
-    <Box bgcolor="white" flex={4} p={5}>
-    <Card sx={{ maxWidth: 500, margin: 5 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "#e8f5e9" }} aria-label="cats">
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <EditIcon /> 
-            |   
-            <DeleteForeverIcon />
-          </IconButton>
-        }
-        title="Insert Name Here"
-        subheader="Insert Date Created Here"
-      />
-      <CardMedia
-        component="img"
-        height="20%"
-        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cute-cat-photos-1593441022.jpg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*"
-        alt="cat image"
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          Add Description Here
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton count={count} aria-label="add to favorites">
-      <Checkbox {...label} 
-      //liked button
-        onClick={() => setCount(count + 1)}
-        icon={<FavoriteIcon />} 
-        checkedIcon={<Favorite sx={{ color: "red" }} />} /> 
-        {count}
-      </IconButton>
-      <IconButton aria-label="share">
-          {/* <ShareIcon /> */}
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-            <NewsFeedComments/>
-        </CardContent>
-      </Collapse>
-    </Card>
-    </Box>
+    <>
+      <Box bgcolor="white" flex={4} p={5}>
+        {/* render out each of the user's post here */}
+        <h3>Posts</h3>
+        <ul>
+          {allPosts.sort((a, b) => b.id - a.id)
+          .map(post => (
+            <li key={post.id}>
+                <h2>{post.description}</h2>
+                <img src={post.image} alt={post.description}/>
+            </li>
+          ))}
+        </ul>
+      </Box>
+    </>
   );
 }

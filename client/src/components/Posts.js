@@ -23,9 +23,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Posts() {
-
-
-
     //Material UI
   const [expanded, setExpanded] = useState(false);
   
