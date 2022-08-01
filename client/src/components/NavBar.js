@@ -21,7 +21,7 @@ const handleLogOut = () => {
     method: 'DELETE'
   })
   updateUser(false)
-  navigate("/login")
+  navigate("/")
 };
   
 
