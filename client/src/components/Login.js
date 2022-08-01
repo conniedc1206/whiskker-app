@@ -14,7 +14,7 @@ import { create } from '@mui/material/styles/createTransitions';
 
 
 const defaultValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -22,6 +22,7 @@ export default function Login({ updateUser }) {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState([]);
   
   const navigate = useNavigate()
 
@@ -45,32 +46,33 @@ export default function Login({ updateUser }) {
       body: JSON.stringify({ ...formValues }),
     };
 
-    fetch("/users", configObj)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Incorrect CatMail or Pawsword. Try Again!');
-      })
-      .then((data) => navigate(`/users/${data.id}`))
-      .catch((error) => {
-        alert(error)
-      });
-
-      setFormValues(defaultValues);
+    fetch("/login", configObj)
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('Incorrect CatMail or Pawsword. Try Again!');
+    })
+    .then((user) => {
+      updateUser(user)
+      navigate(`/users/${user.id}`)
+    })
+    .catch((error) => {
+      alert(error)
+    })
+    setFormValues(defaultValues);
     };
-  // navigate(`/dashboard/${data.id}`)
 
   const handleClickShowPassword = () => {
     setShowPassword((currentState) => !currentState);
   };
+
 
   // Material UI 
   // const theme = createTheme()
   const paperStyle = {padding: 20, height: "40vh", width:500, margin: "100px auto"  }
 
   
-
   return (
     <>
     <div style= {{ backgroundImage: 'url(https://www.hillspet.com/content/dam/cp-sites/hills/hills-pet/en_us/img/article/orange-cat-with-long-whiskers-SW.jpg)', backgroundSize: "cover"}}>
@@ -79,7 +81,7 @@ export default function Login({ updateUser }) {
       <Box>
       <form onSubmit={handleSubmit}> 
       <Grid container alignItems="center" justify="center" direction="column" marginTop="2%">
-        <br></br>
+      <br></br>
       <h2>Log in Whiskker</h2>
       <br></br>
       <br></br>
@@ -93,11 +95,11 @@ export default function Login({ updateUser }) {
               </InputAdornment>
             ),
           }}
-            id="email"
-            name="email"
-            label="Email"
+            id="username"
+            name="username"
+            label="Username"
             type="text"
-            value={formValues.email}
+            value={formValues.username}
             onChange={handleChange}
             required
           />
@@ -135,15 +137,16 @@ export default function Login({ updateUser }) {
       </Grid>
     </form>
       <Grid container alignItems="center" justify="center" direction="column" sx={{mt: 2}}>
-        <Grid item>
-          <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/">
-            Sign up instead
+        <Grid item>New to Whiskker? 
+          <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/signup">
+            Sign Up
           </Button>
         </Grid>
       </Grid>
       </Box>
       </Paper>
       </Grid>
+      {errors? errors.map(error => <div> {error[0]} {error[1]} </div>) :null}
       </div>
     </>
   );
