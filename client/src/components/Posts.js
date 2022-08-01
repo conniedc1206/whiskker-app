@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from "react";
 import NewsFeedComments from "./NewsFeedComments.js";
-
 import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton   } from '@mui/material';
 import { Favorite,   } from '@mui/icons-material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -23,7 +22,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewsFeed() {
+export default function Posts() {
 
 
 

@@ -7,7 +7,7 @@ import { Pets, Icons, Home, Message } from "@mui/icons-material";
 import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem, Stack } from "@mui/material"
 
 
-export default function Navbar ({currentUser}) {
+export default function Navbar ({updateUser}) {
 
 // Material UI
 const [open, setOpen] = useState(false)
