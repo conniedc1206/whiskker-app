@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./NavBar.js";
-import NewsFeed from "./NewsFeed.js";
+import NavBar from "./NavBar.js";
+import NewsFeed from './NewsFeed.js';
 import Login from "./Login.js";
 import SignupNavBar from "./SignupNavBar.js"
 import Catpanions from './Catpanions.js';
@@ -22,10 +22,10 @@ function App() {
     <div className="App">
       {currentUser ? <NavBar updateUser={updateUser}/> : <SignupNavBar />}
       <Routes>
-        <Route path="/" element={currentUser ? <Newsfeed /> : <Login updateUser={updateUser}/>} />
+        <Route path="/" element={currentUser ? <NewsFeed /> : <Login updateUser={updateUser}/>} />
         <Route path="/signup" element={<Signup updateUser={updateUser}/>} />
-        <Route path="/navbar" element={<Navbar/>} />
-        <Route path="/users/:id" element={<Newsfeed currentUser={currentUser}/>} />
+        <Route path="/navbar" element={<NavBar updateUser={updateUser}/>} />
+        <Route path="/users/:id" element={<NewsFeed currentUser={currentUser}/>} />
         <Route path="/mycatpanions" element={<Catpanions/>} />
         <Route path="/me" element={<Profile/>} />
       </Routes>
