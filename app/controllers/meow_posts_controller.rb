@@ -41,7 +41,7 @@ class MeowPostsController < ApplicationController
 
     private
 
-    # ERRORS FOR INVALIDE AND RECORD NOT FOUND ARE IN APP CONTROLLER
+    # ERRORS FOR INVALID AND RECORD NOT FOUND ARE IN APP CONTROLLER
 
     def meow_post_params
         params.permit(:description, :image, :like, :user_id)        

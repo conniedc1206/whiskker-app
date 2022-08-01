@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
   enable_extension "plpgsql"
 
   create_table "catpanions", force: :cascade do |t|
-    t.integer "initiator_id"
-    t.integer "receiver_id"
+    t.integer "requestor_id"
+    t.integer "requestee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -34,12 +34,10 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
 
   create_table "meow_mails", force: :cascade do |t|
     t.string "message"
-    t.bigint "catpanion_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "sender_id"
+    t.integer "recipient_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["catpanion_id"], name: "index_meow_mails_on_catpanion_id"
-    t.index ["user_id"], name: "index_meow_mails_on_user_id"
   end
 
   create_table "meow_posts", force: :cascade do |t|
@@ -64,7 +62,5 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
 
   add_foreign_key "comments", "meow_posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "meow_mails", "catpanions"
-  add_foreign_key "meow_mails", "users"
   add_foreign_key "meow_posts", "users"
 end

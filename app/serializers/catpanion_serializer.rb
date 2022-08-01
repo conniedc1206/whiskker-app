@@ -1,5 +1,5 @@
 class CatpanionSerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :initiator
-  has_one :receiver
+  attributes :id, :requestee_id, :requestee, :requestor_id, :requestor
+  # has_one :requestor
+  # has_one :requestee
 end

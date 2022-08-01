@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     # Show one user. This can be used to see the profile of an individual user
     def show
         user = User.find(params[:id])
-        render json: user, serializer: UserShowSerializer, status: :ok 
+        render json: user, serializer: UserShowSerializer, status: :ok
     end
 
     # Create a user when they sign up on the front end

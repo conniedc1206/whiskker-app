@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :meow_mails, only: []
-  resources :catpanions, only: []
-  resources :comments, only: []
-  resources :meow_posts, only: [:index, :show, :create, :update, :destroy]
-  resources :users, only: [:index, :show, :create, :destroy] # Potentially add update
-
+  resources :meow_mails, only: [:index, :create, :destroy]
+  resources :catpanions, only: [:index, :create, :destroy]
+  resources :comments, only: [:index, :create, :destroy]
+  resources :meow_posts
+  resources :users, except: [:update] # Potentially add update
+  
   # custom routes
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
