@@ -54,7 +54,11 @@ export default function Login({ updateUser }) {
       throw new Error('Incorrect CatMail or Pawsword. Try Again!');
     })
     .then((user) => {
+      // set the state of the user
       updateUser(user)
+      // store the user in localStorage
+      localStorage.setItem('user', JSON.stringify(user))
+      // route user to their newsfeed
       navigate(`/users/${user.id}`)
     })
     .catch((error) => {
@@ -62,6 +66,7 @@ export default function Login({ updateUser }) {
     })
     setFormValues(defaultValues);
     };
+
 
   const handleClickShowPassword = () => {
     setShowPassword((currentState) => !currentState);

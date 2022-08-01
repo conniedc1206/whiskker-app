@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import NavBar from "./NavBar.js";
 import NewsFeed from './NewsFeed.js';
 import Login from "./Login.js";
@@ -10,13 +11,18 @@ import Signup from "./Signup.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false)
-  // const [posts, setPosts] = useState([])
 
   // function for updating currentUser
   const updateUser = (user) => setCurrentUser(user)
-  // fetch the user here instead? prompt user "stay logged in?""
-  
-  console.log(currentUser)
+
+  // to check if there's a user logged in each time the App loads
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      updateUser(foundUser);
+    }
+  }, []);
   
   return (
     <div className="App">

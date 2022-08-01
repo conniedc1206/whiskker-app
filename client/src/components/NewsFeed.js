@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
-import {useParams} from 'react-router-dom'
 import NewsFeedComments from "./NewsFeedComments.js";
 import Posts from "./Posts.js";
 import NavBar from "./NavBar.js";
@@ -26,7 +25,7 @@ const ExpandMore = styled((props) => {
 export default function NewsFeed() {
   const [count, setCount] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const [posts, setPosts] = useState([])
+  const [allPosts, setAllPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [errors, setErrors] = useState(false)
 
@@ -35,16 +34,13 @@ export default function NewsFeed() {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
-  const params = useParams()
-  const {id} = params
 
   useEffect(()=>{
     fetch('/meow_posts')
       .then(res => {
         if(res.ok){
           res.json().then(posts => {
-            setPosts(posts)
+            setAllPosts(posts)
             setLoading(false)
           })
         } else {
@@ -62,7 +58,7 @@ export default function NewsFeed() {
         {/* render out each of the user's post here */}
         <h3>Posts</h3>
         <ul>
-          {posts.sort((a, b) => b.id - a.id)
+          {allPosts.sort((a, b) => b.id - a.id)
           .map(post => (
             <li key={post.id}>
                 <h2>{post.description}</h2>

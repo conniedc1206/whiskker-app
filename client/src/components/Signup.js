@@ -48,6 +48,8 @@ export default function Signup( { updateUser }) {
                   console.log(user)
                   // set current user here
                   updateUser(user)
+                  // store the user in localStorage
+                  localStorage.setItem('user', JSON.stringify(user))
                   // need to route user to their newsfeed page/home page
                   navigate(`/users/${user.id}`)
               })

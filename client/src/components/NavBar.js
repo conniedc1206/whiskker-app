@@ -21,6 +21,7 @@ const handleLogOut = () => {
     method: 'DELETE'
   })
   updateUser(false)
+  localStorage.clear();
   navigate("/")
 };
   
