@@ -9,8 +9,8 @@ class CatpanionsController < ApplicationController
     end
 
     def create
-        if (Catpanion.exists?)
-            render json: { error: "They are already your catpanion!"}, status: :forbidden
+        if (@current_user.friends.ids.include?(params[:friend_id]))
+            render json: { error: "This cat is already your furriend" }, status: :forbidden
         else
             catpanion = Catpanion.create!(catpanion_params)
             render json: catpanion, status: :created
@@ -26,7 +26,7 @@ class CatpanionsController < ApplicationController
     private
 
     def catpanion_params
-        params.permit(:requestor_id, :requestee_id)
+        params.permit(:user_id, :friend_id)
     end
 
 end

@@ -16,10 +16,12 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
   enable_extension "plpgsql"
 
   create_table "catpanions", force: :cascade do |t|
-    t.integer "requestor_id"
-    t.integer "requestee_id"
+    t.bigint "user_id", null: false
+    t.bigint "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["friend_id"], name: "index_catpanions_on_friend_id"
+    t.index ["user_id"], name: "index_catpanions_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -60,6 +62,8 @@ ActiveRecord::Schema.define(version: 2022_07_28_222227) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "catpanions", "users"
+  add_foreign_key "catpanions", "users", column: "friend_id"
   add_foreign_key "comments", "meow_posts"
   add_foreign_key "comments", "users"
   add_foreign_key "meow_posts", "users"

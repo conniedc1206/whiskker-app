@@ -8,11 +8,14 @@ class User < ApplicationRecord
 
     # CATPANIONS
 
-    has_many :requested_relationships, foreign_key: "requestor_id", class_name: 'Catpanion'
-    has_many :requestees, through: :requested_relationships
+    has_many :catpanions
+    has_many :friends, through: :catpanions
 
-    has_many :requestees_of_relationships, foreign_key: "requestee_id", class_name: 'Catpanion'
-    has_many :requestors, through: :requestees_of_relationships
+    # has_many :requested_relationships, foreign_key: "requestor_id", class_name: 'Catpanion'
+    # has_many :requestees, through: :requested_relationships
+
+    # has_many :requestees_of_relationships, foreign_key: "requestee_id", class_name: 'Catpanion'
+    # has_many :requestors, through: :requestees_of_relationships
 
     # MEOWMAILS
 

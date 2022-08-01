@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_user, only: [:create, :index]
+    # skip_before_action :authenticate_user, only: [:create, :index]
 
     # Show all of the users. This can be used in the friends list search filter when looking for new friends to add
     def index
