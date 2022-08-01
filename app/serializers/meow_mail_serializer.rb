@@ -1,5 +1,8 @@
 class MeowMailSerializer < ActiveModel::Serializer
-  attributes :id, :message, :user_id
-  has_one :catpanion
-  has_one :user
+
+  # Included :created_at so the users can see when there message was sent
+
+  attributes :id, :message, :created_at, :sender_id, :sender, :recipient_id, :recipient
+  # has_one :user
+
 end
