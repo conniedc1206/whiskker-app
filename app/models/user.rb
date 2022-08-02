@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-    has_secure_password
+    has_many :meow_posts
 
     has_many :comments
-    has_many :meow_posts, through: :comments
+    # has_many :meow_posts, through: :comments
     has_many :commented_posts, through: :comments, source: :meow_post
     # example of how to use alias name: has_many :alias_name, through: :model_name, source: :initial_name
 
