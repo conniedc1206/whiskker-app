@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 import NewsFeedComments from "./NewsFeedComments.js";
 import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Stack } from '@mui/material';
 import { Favorite } from '@mui/icons-material'
@@ -7,7 +8,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import PostForNewsFeed from './PostForNewsFeed.js';
+import LinearProgress from '@mui/material/LinearProgress';
 
 //Material UI
 const ExpandMore = styled((props) => {
@@ -21,50 +22,65 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewsFeed() {
+export default function NewsFeed({currentUser}) {
   const [expanded, setExpanded] = useState(false);
   const [allPosts, setAllPosts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [errors, setErrors] = useState(false)
+  const [errors, setErrors] = useState([]);
+  // const [loading, setLoading] = useState(true)
 
+  const { friends, meow_posts } = currentUser
   // Material UI, Heart on and off
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // update this to show currentUser.friends.meow_posts & currentUser.meow_posts sorted by created by meow_posts id
-  // useEffect(()=>{
-  //   fetch('/meow_posts')
-  //     .then(res => {
-  //       if(res.ok){
-  //         res.json().then(posts => {
-  //           setAllPosts(posts)
-  //           setLoading(false)
-  //         })
-  //       } else {
-  //         res.json().then(data => setErrors(data.error))
-  //       }
-  //   })
-  // }, [])
+  console.log(meow_posts)
 
-  console.log(allPosts)
-  
-  if(loading) return <h1>Loading...</h1>
-  if(errors) return <h1>{errors}</h1>
+  // requesting all meow_posts
+  useEffect(() => {
+    fetch("/meow_posts")
+    .then(res => {
+      if(res.ok){
+          res.json().then(posts => {
+              setAllPosts(posts)
+          })
+      } else {
+          res.json().then(json => setErrors(Object.entries(json.errors)))
+      }
+  })
+  }, []);
+
+  // for each friend's user_id, map through allPosts and filter out the ones that are matching the friend's user_id
+  function friendsPosts() {
+    let idsArray = []
+    const pluck = (arr, key) => arr.map(i => i[key]);
+    const friendIds = pluck(friends, 'id')
+    idsArray = [...friendIds, currentUser.id]
+
+    const postsArray = []
+    for ( let i = 0; i < idsArray.length; i++ ) {
+      const eachPostsArray = allPosts.filter(post => post.user.id === idsArray[i])
+      postsArray.push(eachPostsArray)
+    }
+    return postsArray.flat()
+  }
+  friendsPosts()
 
   // if no meowposts shown, render add friends to view posts
-
   return (
     <>
+      {/* <Box sx={{ width: '100%' }}>
+    {loading ? <LinearProgress /> : null}
+      </Box> */}
       <Box bgcolor="white" flex={4} p={5}>
         <Stack>
-          {allPosts.sort((a, b) => b.id - a.id)
+          {friendsPosts().sort((a, b) => b.id - a.id)
           .map(post => (
             <Card key={post.id} sx={{ maxWidth: 500, margin: 4 }}>
             <CardHeader
               avatar={
-                <Avatar alt={post.user.username} src={post.user.purrfile_picture} sx={{ width: 56, height: 56 }}/>
+                <Avatar alt={post.user_id} src={"need user's profile pic"} sx={{ width: 56, height: 56 }}/>
               }
               action={
                 <IconButton aria-label="settings">
@@ -73,7 +89,7 @@ export default function NewsFeed() {
                   <DeleteForeverIcon />
                 </IconButton>
               }
-              title={post.user.username}
+              title={post.user_id}
               subheader={post.created_at}
             />
             <CardMedia
@@ -104,7 +120,7 @@ export default function NewsFeed() {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                  <NewsFeedComments/>
+                  {/* <NewsFeedComments/> */}
               </CardContent>
             </Collapse>
           </Card>
