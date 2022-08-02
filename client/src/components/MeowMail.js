@@ -1,15 +1,14 @@
 import { useState, React } from 'react';
-
 import { Grid, Typography, Paper, List, ListItem, Avatar, Divider, ListItemText, ListItemIcon, TextField, Fab } from "@mui/material";
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-})
+// const useStyles = makeStyles({
+//     table: {
+//         minWidth: 650,
+//     },
+// })
 
-export default function Message ({posts}) {
+export default function MeowMail ({posts}) {
 
     const [commentTxt, setCommentTxt] = useState("");
 

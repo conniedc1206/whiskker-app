@@ -22,7 +22,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Posts() {
+export default function PostForNewsFeed() {
     //Material UI
   const [expanded, setExpanded] = useState(false);
   
