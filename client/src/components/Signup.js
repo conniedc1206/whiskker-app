@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Grid, TextField, Button, InputAdornment, IconButton, Box, Paper } from "@mui/material"
+import { Typography, Grid, TextField, Button, InputAdornment, IconButton, Box, Paper, FormControl, Input, InputLabel, FormHelperText } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
@@ -12,9 +12,14 @@ import { GiCat } from 'react-icons/gi';
 const defaultValues = {
   full_name: '',
   purrfile_picture: '',
-  bio: '',
   username: '',
   password: ''
+};
+
+const textColor = {
+  root: {
+    color: "#263238"
+  }
 };
 
 export default function Signup( { updateUser }) {
@@ -24,14 +29,13 @@ export default function Signup( { updateUser }) {
 
     const navigate = useNavigate();
 
-    const {username, password, purrfile_picture, bio, full_name} = formData
+    const {username, password, purrfile_picture, full_name} = formData
 
     function onSubmit(e){
       e.preventDefault()
       const user = {
           full_name,
           purrfile_picture, 
-          bio, 
           username, 
           password, 
       }
@@ -66,54 +70,67 @@ export default function Signup( { updateUser }) {
         setShowPassword((currentState) => !currentState);
     };
 
+
+
     // Material UI 
     // const theme = createTheme();
-    const paperStyle = {padding: 20, height: "100vh", width:500, margin: "100px auto"  }
+    const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
 
   return (
-    <div style= {{ backgroundImage: 'url(https://st3.depositphotos.com/1177973/12632/i/950/depositphotos_126325932-stock-photo-many-cats-background.jpg)', 
-    backgroundSize: "cover",
-    position: "relative", 
-    // width: '100vh', 
-    // height: "100vh",
-    // backgroundPosition: "center",
-    // backgroundRepeat: 'no-repeat'
-    }}>
-      <Grid>
-        <Paper elevation={10} sx={{ backgroundColor: "white", opacity:"85%"}} style={paperStyle}>
-      <Box>
-        <form onSubmit={onSubmit}>
-          <Grid
-            container
+    <Grid style={{ display: "inline-block", backgroundImage: `url(https://icatcare.org/app/uploads/2018/06/Layer-1704-1200x630.jpg)`,
+    backgroundSize: "100%",
+    width: "100%",
+    height: "100%",
+    position: "absolute", 
+    backgroundRepeat: "no-repeat" }}>
+      <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
+        <Grid style={{ backgroundColor: "white", width: "25vw", height: "50vh", margin: "auto", marginTop: "13%", opacity: "90%" }}>
+          <form>
+            <Grid container 
             alignItems="center"
             justify="center"
             direction="column"
-            marginTop="2%"
-          >
-            <br></br>
-            <h2>Sign up and experience Whiskker today!</h2>
-            <br></br>
-            <br></br>
-            <Grid item marginBottom="2%">
+            margin="auto">
+              <h2 style={{ marginTop: "5%" }} >Sign up for Whiskker!</h2>
+              <Grid item margin="auto" marginTop="5%" marginBottom="2%">
               <TextField
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <GiCat/>
-                    </InputAdornment>
-                  ),
-                }}
-                id="full_name"
-                name="full_name"
-                label="Full Name"
-                type="text"
-                value={formData.full_name || ""}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item marginBottom="2%">
+                    InputLabelProps={{ shrink: true }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <GiCat/>
+                        </InputAdornment>
+                      ),
+                    }}
+                    id="full_name"
+                    name="full_name"
+                    label="Full Name"
+                    type="text"
+                    value={formData.full_name || ""}
+                    onChange={handleChange}
+                    required
+                  />
+              </Grid>
+              <Grid item margin="auto" marginBottom="2%" >
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IoLogoOctocat />
+                      </InputAdornment>
+                    ),
+                  }}
+                  id="username"
+                  name="username"
+                  label="Username"
+                  type="text"
+                  value={formData.username || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
+              <Grid item margin="auto" marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -132,45 +149,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item marginBottom="2%">
-              <TextField
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <ViewHeadlineIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                id="bio"
-                name="bio"
-                label="Bio"
-                type="text"
-                value={formData.bio || ""}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item marginBottom="2%">
-              <TextField
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <IoLogoOctocat />
-                    </InputAdornment>
-                  ),
-                }}
-                id="username"
-                name="username"
-                label="Username"
-                type="text"
-                value={formData.username || ""}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item marginBottom="5%">
+            <Grid item margin="auto" marginBottom="5%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -195,15 +174,12 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item>
+            <Grid item margin="auto" marginBottom="2%">
               <Button type="submit" variant="contained" sx={{backgroundColor:"#33691e"}}>
                 CREATE FREE ACCOUNT
               </Button>
             </Grid>
-          </Grid>
-        </form>
-        <Grid container alignItems="center" justify="center" direction="column">
-          <Grid item sx={{ mt: 2 }}>
+            <Grid item margin="auto" marginBottom="5%">
             <Button
               type="submit"
               variant="contained"
@@ -214,13 +190,11 @@ export default function Signup( { updateUser }) {
               Login Instead
             </Button>
           </Grid>
+            </Grid>
+            
+          </form>
         </Grid>
-        </Box>
-            </Paper>
-        </Grid>
-
-      {errors? errors.map(error => <div> {error[0]} {error[1]} </div>) :null}
-    
-</div>
+      </Grid>
+    </Grid>
   )
-}
+} 

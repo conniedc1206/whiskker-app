@@ -31,7 +31,7 @@ function App() {
       {currentUser ? <NavBar updateUser={updateUser}/> : <SignupNavBar />}
       <Routes>
         <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed /> : <Login updateUser={updateUser}/>} />
-        <Route path="signup" element={<Signup updateUser={updateUser}/>} />
+        <Route path="signup" element={<Signup updateUser={updateUser}/>}/>
         {/* <Route path="newsfeed" element={<NewsFeed />} /> */}
         <Route path="mycatpanions" element={<Catpanions currentUser={currentUser}/>} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
