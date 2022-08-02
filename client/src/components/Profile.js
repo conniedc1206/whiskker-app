@@ -1,28 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CreatePost from "./CreatePost.js"
-import { Avatar, Typography, AppBar, Card, CardAction, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button, } from "@mui/material";
+import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import { ClassNames } from "@emotion/react";
 // import ProfileNavBar from "./ProfileNavBar.js";
+import PostForProfile from "./PostForProfile";
+
 // create PostForProfile for currentUser.meow_posts
 // create EditPostForProfile
 
 
-export default function Profile () {
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+export default function Profile ({ currentUser }) {
+    // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const cards = currentUser.meow_posts
+
+   
+    console.log(currentUser)
+
 
     return (
         <>
-        {/* <ProfileNavBar /> */}
-        {/* <CssBaseline /> */}
-        {/* <div style= {{ backgroundImage: 'url(https://www.hillspet.com/content/dam/cp-sites/hills/hills-pet/en_us/img/article/orange-cat-with-long-whiskers-SW.jpg)',backgroundSize: "cover" }}> */}
-        {/* </div> */}
         <main>
             <div>
-                {/* <Grid container direction="column" className={classes.root}>
-                </Grid> */}
-
-
                 <Container maxwidth="sm" style={{ marginTop: "100px" }} display="center" alignItems='center'
                              justifyContent='center'>
                               
@@ -57,10 +57,10 @@ export default function Profile () {
             </div>
             <Container style={{ marginTop: "5%" }}>
                 <Grid container spacing={1}>
-                {cards.map((card) =>( 
-                    <Grid item key={card} xs={12} sm={6} md={4} container item spacing={3}>
-                    {/* <Posts/> */}
-                </Grid>
+                {cards?.map((card) =>( 
+                    // <Grid item key={card} xs={12} sm={6} md={4} container spacing={3}>
+                    <PostForProfile key={card.id} card={card} />
+                // </Grid>
                 ))}
                 </Grid>
             </Container>
