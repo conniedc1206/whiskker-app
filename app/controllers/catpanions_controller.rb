@@ -1,5 +1,5 @@
 class CatpanionsController < ApplicationController
-    # check if catpanion exist already
+    skip_before_action :authenticate_user
 
     # GET "/catpanions"
     # Fetch this route if you want to display a list of all the current users catpanions
