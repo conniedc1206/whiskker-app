@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { Fab, Tooltip, Button, Modal, Box, Typography, styled, TextField, Avatar, Stack, IconButton } from "@mui/material";
 import { Add, PhotoCamera } from "@mui/icons-material";
+import { useNavigate } from 'react-router-dom';
 
 
 //Material UI
@@ -25,20 +26,20 @@ const defaultValues = {
     like: 0,
 }
 
-export default function CreatePost({ }) {
+export default function CreatePost({ currentUser, user }) {
     const [open, setOpen] = useState(false);
 
     const [postValues, setPostValues] = useState (defaultValues);
  let id;
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPostValues({
             ...postValues,
-            [name]: value,
-            user_id: id
+            [name]: value
         })
+        console.log(postValues)
     }
 
     const handleSubmit = (e) => {
@@ -50,19 +51,16 @@ export default function CreatePost({ }) {
               "Content-Type": "application/json",
               "Accept": "application/json",
             },
-            body: JSON.stringify({...postValues}),
+            body: JSON.stringify({...postValues, user_id: currentUser.id}),
           };
-          fetch(`/users/${id}`, configObj)
+          fetch("/meow_posts", configObj)
             .then((res) => res.json())
-            .then((data) => (`/users/${data.user_id}`))
+            .then((data) => navigate(`/me/${data}`)
+            (console.log(data)))
+            // `/users/${data.meow_post}`)
 
         setPostValues(defaultValues);
     }
-
-
-
-
-
 
     return (
         <>
@@ -92,7 +90,8 @@ export default function CreatePost({ }) {
         </UserBox>
             <TextField
                 sx={{ width: "100%" }}
-                id="outlined-basic"
+                name="description"
+                id="description"
                 multiline
                 rows={3}
                 placeholder="Add description here"
@@ -105,7 +104,7 @@ export default function CreatePost({ }) {
                     <input
                     name="image"
                     hidden accept="image/*" 
-                    type="file"
+                    // type="file"
                     value={postValues.image}
                     onChange={handleChange}
                     />

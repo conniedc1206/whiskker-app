@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_user, only: [:create, :index]
+    # skip_before_action :authenticate_user, only: [:create, :index]
 
     # GET "/users"
     # Fetch this route to see a list of all users that currently have an account

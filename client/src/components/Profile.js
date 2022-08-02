@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CreatePost from "./CreatePost.js"
 import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
@@ -11,7 +11,13 @@ import PostForProfile from "./PostForProfile";
 
 
 export default function Profile ({ currentUser }) {
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const cards = currentUser.meow_posts
+
+   
+    console.log(currentUser)
+
 
     return (
         <>
@@ -51,10 +57,10 @@ export default function Profile ({ currentUser }) {
             </div>
             <Container style={{ marginTop: "5%" }}>
                 <Grid container spacing={1}>
-                {cards.map((card) =>( 
-                    <Grid item key={card} xs={12} sm={6} md={4} container spacing={3}>
-                    <PostForProfile />
-                </Grid>
+                {cards?.map((card) =>( 
+                    // <Grid item key={card} xs={12} sm={6} md={4} container spacing={3}>
+                    <PostForProfile key={card.id} card={card} />
+                // </Grid>
                 ))}
                 </Grid>
             </Container>
