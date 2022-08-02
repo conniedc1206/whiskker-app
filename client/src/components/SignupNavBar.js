@@ -9,7 +9,7 @@ export default function SignupNavbar () {
   })
 
   return (
-    <AppBar position="sticky" sx={{backgroundColor:"#33691e"}}>
+    <AppBar position="fixed" sx={{backgroundColor:"#33691e"}}>
         <StyledToolbar>
           <Typography variant="h6" sx={{ display: {xs: "none", sm:"block" } }}>
             <Pets/> Whiskker
