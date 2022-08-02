@@ -1,5 +1,7 @@
 class MeowMailsController < ApplicationController
 
+    # GET "/meow_mails"
+
     # Show all messages between two CATPANIONS.
 
     #EXAMPLE: If I send a message to a user with the ID of 10:
@@ -12,6 +14,8 @@ class MeowMailsController < ApplicationController
         render json: meowmails, status: :ok
     end
 
+    # POST "/meow_mails"
+
     # Create a new message and send it to a specific catpanion
 
     # NOTE: Create a message is SENDING a message, not creating the UI that is seen to send the message. When a user wants to send 
@@ -23,6 +27,7 @@ class MeowMailsController < ApplicationController
         render json: meowmail, status: :created
     end
 
+    # DESTROY "/meow_mails/:id"
     # Delete a message. This will only delete ONE MESSAGE, with no dependencies associated to it.
 
     def destroy

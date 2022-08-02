@@ -1,16 +1,20 @@
 class CommentsController < ApplicationController
 
-    # Show all comments for a given post
+    # GET "/comments"
 
     def index
         comments = Comment.all
         render json: comments, status: :ok
     end
 
+    # POST "/comments"
+
     def create
         comment = Comment.create!(comment_params)
         render json: comment, status: :created
     end
+
+    # DELETE "/comments/:id"
 
     def destroy
         comment = Comment.find(params[:id])

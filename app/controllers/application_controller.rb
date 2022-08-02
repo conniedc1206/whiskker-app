@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  # before_action :authenticate_user
+  before_action :authenticate_user
   include ActionController::Cookies
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
@@ -10,10 +10,12 @@ class ApplicationController < ActionController::API
   end
   
   private
+
   # checking if a user is logged in
-  # def authenticate_user
-  #   render json: { errors: { User: "Not Authorized" } }, status: :unauthorized unless current_user
-  # end
+  
+  def authenticate_user
+    render json: { errors: { User: "Not Authorized" } }, status: :unauthorized unless current_user
+  end
 
   # Record_not_found for show, update, and delete
   def record_not_found(exception)

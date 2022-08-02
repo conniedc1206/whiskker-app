@@ -1,19 +1,26 @@
 class UsersController < ApplicationController
-    # skip_before_action :authenticate_user, only: [:create, :index]
+    skip_before_action :authenticate_user, only: [:create, :index]
 
-    # Show all of the users. This can be used in the friends list search filter when looking for new friends to add
+    # GET "/users"
+    # Fetch this route to see a list of all users that currently have an account
+
     def index
         users = User.all
         render json: users, status: :ok
     end
 
-    # Show one user. This can be used to see the profile of an individual user
+    # GET "/users/:id"
+    # Fetch this route if you are trying to display ANY INFORMATION ABOUT A SINGLE USER. This could be: MeowPosts,
+    # Catpanions, Messages
+
     def show
         user = User.find(params[:id])
         render json: user, serializer: UserShowSerializer, status: :ok
     end
 
-    # Create a user when they sign up on the front end
+    # POST "/users"
+    # Fetch this route to create a user (see user params to know what's required in the form)
+
     def create
         user = User.create!(user_params)
         session[:user_id] = user.id
@@ -28,7 +35,9 @@ class UsersController < ApplicationController
     #     render json: user, status: :accepted
     # end
 
+    # DESTROY "/users/:id"
     # Delete account (user) in account settings
+    
     def destroy
         user = User.find(params[:id])
         user.destroy
