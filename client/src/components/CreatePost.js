@@ -1,9 +1,7 @@
 import React from 'react';
 import { useState } from "react";
-import Posts from "./Posts.js";
 import { Fab, Tooltip, Button, Modal, Box, Typography, styled, TextField, Avatar, Stack, IconButton } from "@mui/material";
 import { Add, PhotoCamera } from "@mui/icons-material";
-import { green } from '@mui/material/colors';
 
 const CustomModal = styled(Modal) ({
     display: "flex",
@@ -19,15 +17,7 @@ const UserBox = styled(Box) ({
 })
 
 export default function CreatePost() {
-
-
-
-    //Material UI
     const [open, setOpen] = useState(false);
-    // const handleOpen = () => setOpen(true);
-    // const handleClose = () => setOpen(false);
-    const color = green[100];
-
 
     return (
         <>

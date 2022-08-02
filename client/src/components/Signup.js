@@ -1,14 +1,12 @@
 import React, { useState } from "react"
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Grid, TextField, Button, InputAdornment, IconButton, Box, Paper, Avatar } from "@mui/material"
+import { Grid, TextField, Button, InputAdornment, IconButton, Box, Paper } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
-import {createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from '@mui/material/CssBaseline';
 
 
 const defaultValues = {
@@ -45,13 +43,12 @@ export default function Signup( { updateUser }) {
       .then(res => {
           if(res.ok){
               res.json().then(user => {
-                  console.log(user)
                   // set current user here
                   updateUser(user)
                   // store the user in localStorage
                   localStorage.setItem('user', JSON.stringify(user))
                   // need to route user to their newsfeed page/home page
-                  navigate(`/users/${user.id}`)
+                  navigate("/newsfeed")
               })
           } else {
               res.json().then(json => setErrors(Object.entries(json.errors)))

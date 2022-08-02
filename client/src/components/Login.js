@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate,  Link as RouterLink } from 'react-router-dom'
-import { Grid, CssBaseline, Paper, Box } from "@mui/material";
+import { Grid, Paper, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import EmailIcon from '@mui/icons-material/Email';
@@ -8,10 +8,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {createTheme, ThemeProvider } from "@mui/material/styles";
-import { create } from '@mui/material/styles/createTransitions';
-
-
 
 const defaultValues = {
   username: "",
@@ -22,7 +18,6 @@ export default function Login({ updateUser }) {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [showPassword, setShowPassword] = useState(false)
-  const [errors, setErrors] = useState([]);
   
   const navigate = useNavigate()
 
@@ -51,7 +46,7 @@ export default function Login({ updateUser }) {
       if (res.ok) {
         return res.json();
       }
-      throw new Error('Incorrect CatMail or Pawsword. Try Again!');
+      throw new Error('Incorrect Username or Pawssword. Try Again!');
     })
     .then((user) => {
       // set the state of the user
@@ -59,7 +54,7 @@ export default function Login({ updateUser }) {
       // store the user in localStorage
       localStorage.setItem('user', JSON.stringify(user))
       // route user to their newsfeed
-      navigate(`/users/${user.id}`)
+      navigate("/newsfeed")
     })
     .catch((error) => {
       alert(error)
@@ -151,7 +146,6 @@ export default function Login({ updateUser }) {
       </Box>
       </Paper>
       </Grid>
-      {errors? errors.map(error => <div> {error[0]} {error[1]} </div>) :null}
       </div>
     </>
   );

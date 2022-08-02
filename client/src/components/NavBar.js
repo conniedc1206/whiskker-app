@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate,  Link as RouterLink } from 'react-router-dom'
-import Profile from "./Profile.js";
-import NewsFeed from './NewsFeed.js';
-import CreatePost from "./CreatePost.js";
-import { Pets, Icons, Home, Message } from "@mui/icons-material";
-import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem, Stack } from "@mui/material"
+import { Pets, Home, Message } from "@mui/icons-material";
+import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem } from "@mui/material"
 
 
 export default function Navbar ({updateUser}) {
@@ -46,13 +43,13 @@ const handleLogOut = () => {
             </Typography>
               <Pets sx={{ display: { xs: "block", sm: "none" } }} />
           <Icons>
-            <Badge badgeContent={4} color="error">
+            <Badge color="primary" component={RouterLink} to="/newsfeed">
                 <Home/>
             </Badge>
-            <Badge badgeContent={20} color="error">
+            <Badge color="primary" component={RouterLink} to="/mycatpanions">
                 <Pets/>
             </Badge>
-            <Badge badgeContent={5} color="error">
+            <Badge color="primary" component={RouterLink} to="/messaging">
                 <Message/>
             </Badge>
                 <Avatar src="https://m.media-amazon.com/images/I/71kNvlpS9GL._AC_SS450_.jpg"
@@ -81,12 +78,10 @@ const handleLogOut = () => {
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </AppBar>
-    <Box>
+    {/* <Box>
       <Stack direction="column" alignItems="center" justifyContent="space-evenly" spacing={0.5}>
-    <NewsFeed/>
-    <CreatePost/>
       </Stack>
-    </Box>
+    </Box> */}
     </div>
   )
 }
