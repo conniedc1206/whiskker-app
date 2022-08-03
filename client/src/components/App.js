@@ -11,6 +11,7 @@ import MeowMail from "./MeowMail.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(false)
+  const [catpanions, setCatpanions] = useState([])
 
   // function for updating currentUser
   const updateUser = (user) => setCurrentUser(user)
@@ -24,7 +25,13 @@ function App() {
     }
   }, []);
 
-  // console.log(currentUser)
+  useEffect(() => {
+    fetch("/catpanions")
+      .then(res => res.json())
+      .then(setCatpanions)
+  }, [])
+
+  console.log(catpanions)
   
   return (
     <div className="App">

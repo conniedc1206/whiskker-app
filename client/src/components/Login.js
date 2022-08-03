@@ -62,14 +62,14 @@ export default function Login({ updateUser }) {
     setFormValues(defaultValues);
     };
 
-
   const handleClickShowPassword = () => {
     setShowPassword((currentState) => !currentState);
   };
   
   return (
-    <Grid style={{ display: "inline-block", backgroundImage: "url(https://i.imgur.com/wEV9aGW.png)",
-    backgroundSize: "100%",
+    <Grid style={{ display: "inline-block", backgroundImage: "url(https://i.imgur.com/m8NVI9B.png)",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
     width: "100%",
     height: "100%",
     position: "absolute", 

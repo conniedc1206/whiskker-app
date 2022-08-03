@@ -68,8 +68,9 @@ export default function Signup( { updateUser }) {
     // const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
 
   return (
-    <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/wEV9aGW.png)`,
-    backgroundSize: "100%",
+    <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed-right",
     width: "100%",
     height: "100%",
     position: "absolute", 
