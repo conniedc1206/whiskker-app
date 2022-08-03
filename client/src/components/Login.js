@@ -68,7 +68,7 @@ export default function Login({ updateUser }) {
   };
   
   return (
-    <Grid style={{ display: "inline-block", backgroundImage: `url(https://icatcare.org/app/uploads/2018/06/Layer-1704-1200x630.jpg)`,
+    <Grid style={{ display: "inline-block", backgroundImage: "url(https://i.imgur.com/wEV9aGW.png)",
     backgroundSize: "100%",
     width: "100%",
     height: "100%",

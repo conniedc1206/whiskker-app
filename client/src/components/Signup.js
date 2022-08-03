@@ -68,7 +68,7 @@ export default function Signup( { updateUser }) {
     // const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
 
   return (
-    <Grid style={{ display: "inline-block", backgroundImage: `url(https://icatcare.org/app/uploads/2018/06/Layer-1704-1200x630.jpg)`,
+    <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/wEV9aGW.png)`,
     backgroundSize: "100%",
     width: "100%",
     height: "100%",
@@ -83,7 +83,7 @@ export default function Signup( { updateUser }) {
             justify="center"
             direction="column"
             margin="auto">
-              <h2 style={{ marginTop: "5%" }}>Sign up for Whiskker!</h2>
+              <h2 style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>Sign up for Whiskker!</h2>
               <Grid item margin="auto" marginTop="5%" marginBottom="2%">
               <TextField
                     InputLabelProps={{ shrink: true }}
@@ -103,7 +103,7 @@ export default function Signup( { updateUser }) {
                     required
                   />
               </Grid>
-              <Grid item margin="auto" marginBottom="2%" >
+              <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }} >
                 <TextField
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
@@ -141,7 +141,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid> */}
-            <Grid item margin="auto" marginBottom="5%">
+            <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -166,7 +166,7 @@ export default function Signup( { updateUser }) {
                 required
               />
             </Grid>
-            <Grid item margin="auto" marginBottom="2%">
+            <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
               <Button type="submit" variant="contained" sx={{backgroundColor:"#33691e"}}>
                 CREATE FREE ACCOUNT
               </Button>

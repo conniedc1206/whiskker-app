@@ -38,8 +38,6 @@ export default function NewsFeed({currentUser}) {
     setExpanded(!expanded);
   };
 
-  console.log(meow_posts)
-
   // requesting all meow_posts
   useEffect(() => {
     fetch("/meow_posts")
@@ -71,7 +69,8 @@ export default function NewsFeed({currentUser}) {
   console.log(friendsPosts())
 
   // if no meowposts shown, render add friends to view posts
-  console.log(currentUser.friends)
+
+  console.log()
 
 
   return (
@@ -86,7 +85,7 @@ export default function NewsFeed({currentUser}) {
             <Card key={post.id} sx={{ width: "35%", margin: 4 }}>
             <CardHeader
               avatar={
-                <Avatar alt={post.user_id} src={"need user's profile pic"} sx={{ width: 56, height: 56 }}/>
+                <Avatar alt={post.user.id} src={post.user.purrfile_picture} sx={{ width: 56, height: 56 }}/>
               }
               action={
                 <IconButton aria-label="settings">
@@ -95,8 +94,8 @@ export default function NewsFeed({currentUser}) {
                   <DeleteForeverIcon />
                 </IconButton>
               }
-              title={post.user_id}
-              subheader={post.created_at}
+              title={post.user.username}
+              subheader={post.created_at.slice(0, 10)}
             />
             <CardMedia
               component="img"
@@ -133,7 +132,7 @@ export default function NewsFeed({currentUser}) {
           )) 
           : 
           <Box container style={{ display: "inline-block" }}>
-            <Link component={RouterLink} to="/mycatpanions" >Add some catpanions to view meowposts!</Link>
+            <Link component={RouterLink} to="/mycatpanions">Add some catpanions to view meowposts!</Link>
           </Box>
           }
         </Stack>
