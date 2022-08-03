@@ -2,12 +2,15 @@ import * as React from 'react';
 import { useState, useEffect } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import NewsFeedComments from "./NewsFeedComments.js";
-import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Stack } from '@mui/material';
+import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Stack, Grid } from '@mui/material';
 import { Favorite } from '@mui/icons-material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
+import Button from "@mui/material/Button";
 import LinearProgress from '@mui/material/LinearProgress';
 
 //Material UI
@@ -65,19 +68,22 @@ export default function NewsFeed({currentUser}) {
     }
     return postsArray.flat()
   }
-  friendsPosts()
+  console.log(friendsPosts())
 
   // if no meowposts shown, render add friends to view posts
+  console.log(currentUser.friends)
+
+
   return (
     <>
       {/* <Box sx={{ width: '100%' }}>
     {loading ? <LinearProgress /> : null}
       </Box> */}
       <Box bgcolor="white" flex={4} p={5}>
-        <Stack>
-          {friendsPosts().sort((a, b) => b.id - a.id)
-          .map(post => (
-            <Card key={post.id} sx={{ maxWidth: 500, margin: 4 }}>
+        <Stack alignItems="center" >
+          {currentUser.friends.length > 0 ? friendsPosts().sort((a, b) => b.id - a.id)
+          ?.map(post => (
+            <Card key={post.id} sx={{ width: "35%", margin: 4 }}>
             <CardHeader
               avatar={
                 <Avatar alt={post.user_id} src={"need user's profile pic"} sx={{ width: 56, height: 56 }}/>
@@ -105,7 +111,7 @@ export default function NewsFeed({currentUser}) {
             </CardContent>
             <CardActions disableSpacing>
               <IconButton aria-label="add to favorites">
-              <Checkbox {...label} icon={<FavoriteIcon />} checkedIcon={<Favorite sx={{ color: "red" }} />} /> {post.likes} Likes
+              <Checkbox {...label} icon={<FavoriteIcon />} checkedIcon={<Favorite sx={{ color: "red" }} />} /> {post.like}
               </IconButton>
               <IconButton aria-label="share">
               </IconButton>
@@ -124,7 +130,12 @@ export default function NewsFeed({currentUser}) {
               </CardContent>
             </Collapse>
           </Card>
-          ))}
+          )) 
+          : 
+          <Box container style={{ display: "inline-block" }}>
+            <Link component={RouterLink} to="/mycatpanions" >Add some catpanions to view meowposts!</Link>
+          </Box>
+          }
         </Stack>
       </Box>
     </>
