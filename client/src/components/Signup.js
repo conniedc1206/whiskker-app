@@ -1,10 +1,8 @@
 import React, { useState } from "react"
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Typography, Grid, TextField, Button, InputAdornment, IconButton, Box, Paper, FormControl, Input, InputLabel, FormHelperText } from "@mui/material"
+import { Grid, TextField, Button, InputAdornment, IconButton } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
-import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
 
@@ -16,12 +14,6 @@ const defaultValues = {
   password: ''
 };
 
-const textColor = {
-  root: {
-    color: "#263238"
-  }
-};
-
 export default function Signup( { updateUser }) {
     const [formData, setFormData] = useState(defaultValues)
     const [errors, setErrors] = useState([]);
@@ -29,13 +21,12 @@ export default function Signup( { updateUser }) {
 
     const navigate = useNavigate();
 
-    const {username, password, purrfile_picture, full_name} = formData
+    const {username, password, full_name} = formData
 
-    function onSubmit(e){
+    function handleSubmit(e){
       e.preventDefault()
       const user = {
-          full_name,
-          purrfile_picture, 
+          full_name, 
           username, 
           password, 
       }
@@ -74,7 +65,7 @@ export default function Signup( { updateUser }) {
 
     // Material UI 
     // const theme = createTheme();
-    const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
+    // const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
 
   return (
     <Grid style={{ display: "inline-block", backgroundImage: `url(https://icatcare.org/app/uploads/2018/06/Layer-1704-1200x630.jpg)`,
@@ -82,16 +73,17 @@ export default function Signup( { updateUser }) {
     width: "100%",
     height: "100%",
     position: "absolute", 
-    backgroundRepeat: "no-repeat" }}>
+    backgroundRepeat: "no-repeat",
+    opacity: "92%" }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
-        <Grid style={{ backgroundColor: "white", width: "25vw", height: "50vh", margin: "auto", marginTop: "13%", opacity: "90%" }}>
-          <form>
+        <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%" }}>
+          <form onSubmit={handleSubmit}>
             <Grid container 
             alignItems="center"
             justify="center"
             direction="column"
             margin="auto">
-              <h2 style={{ marginTop: "5%" }} >Sign up for Whiskker!</h2>
+              <h2 style={{ marginTop: "5%" }}>Sign up for Whiskker!</h2>
               <Grid item margin="auto" marginTop="5%" marginBottom="2%">
               <TextField
                     InputLabelProps={{ shrink: true }}
@@ -130,7 +122,7 @@ export default function Signup( { updateUser }) {
                   required
                 />
               </Grid>
-              <Grid item margin="auto" marginBottom="2%">
+              {/* <Grid item margin="auto" marginBottom="2%">
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -148,7 +140,7 @@ export default function Signup( { updateUser }) {
                 onChange={handleChange}
                 required
               />
-            </Grid>
+            </Grid> */}
             <Grid item margin="auto" marginBottom="5%">
               <TextField
                 InputLabelProps={{ shrink: true }}
