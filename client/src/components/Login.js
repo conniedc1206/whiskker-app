@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate,  Link as RouterLink } from 'react-router-dom'
-import { Grid, Paper, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import EmailIcon from '@mui/icons-material/Email';
@@ -66,87 +66,82 @@ export default function Login({ updateUser }) {
   const handleClickShowPassword = () => {
     setShowPassword((currentState) => !currentState);
   };
-
-
-  // Material UI 
-  // const theme = createTheme()
-  const paperStyle = {padding: 20, height: "40vh", width:500, margin: "100px auto"  }
-
   
   return (
-    <>
-    <div style= {{ backgroundImage: 'url(https://www.hillspet.com/content/dam/cp-sites/hills/hills-pet/en_us/img/article/orange-cat-with-long-whiskers-SW.jpg)', backgroundSize: "cover"}}>
-        <Grid>
-        <Paper elevation={10} sx={{ backgroundColor: "white", opacity:"85%" }} style={paperStyle}>
-      <Box>
-      <form onSubmit={handleSubmit}> 
-      <Grid container alignItems="center" justify="center" direction="column" marginTop="2%">
-      <br></br>
-      <h2>Log in Whiskker</h2>
-      <br></br>
-      <br></br>
-        <Grid item sx={{ mb: 2 }}>
-          <TextField
-           InputLabelProps={{ shrink: true }}
-           InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <EmailIcon />
-              </InputAdornment>
-            ),
-          }}
-            id="username"
-            name="username"
-            label="Username"
-            type="text"
-            value={formValues.username}
-            onChange={handleChange}
-            required
-          />
+    <Grid style={{ display: "inline-block", backgroundImage: "url(https://i.imgur.com/wEV9aGW.png)",
+    backgroundSize: "100%",
+    width: "100%",
+    height: "100%",
+    position: "absolute", 
+    backgroundRepeat: "no-repeat", 
+    opacity: "92%" }}>
+      <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
+        <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%" }}>
+          <form onSubmit={handleSubmit}>
+            <Grid container 
+              alignItems="center"
+              justify="center"
+              direction="column"
+              margin="auto">
+              <h2 style={{ marginTop: "5%" }}>Log in to Whiskker!</h2>
+              <Grid item margin="auto" marginTop="5%" marginBottom="2%">
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                id="username"
+                name="username"
+                label="Username"
+                type="text"
+                value={formValues.username}
+                onChange={handleChange}
+                required
+                />
+              </Grid>
+              <Grid item margin="auto" marginBottom="2%" >
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="start">
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  id="password-input"
+                  name="password"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  value={formValues.password || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
+              <Grid item margin="auto" marginBottom="2%">
+                <Button type="submit" variant="contained" sx={{backgroundColor:"#33691e"}}>
+                  Sign In
+                </Button>
+              </Grid>
+              <h5>New to Whiskker?</h5>
+              <Grid item margin="auto" marginTop="1%">
+                <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/signup">
+                  Sign Up Instead
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
         </Grid>
       </Grid>
-        <Grid container alignItems="center" justify="center" direction="column">
-          <Grid item marginBottom="4%">
-            <TextField
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="start"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              id="password-input"
-              name="password"
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              value={formValues.password || ""}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-        <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}}>
-            Login
-        </Button>
-      </Grid>
-    </form>
-      <Grid container alignItems="center" justify="center" direction="column" sx={{mt: 2}}>
-        <Grid item>New to Whiskker? 
-          <Button variant="contained" type="submit" sx={{backgroundColor:"#33691e"}} component={RouterLink} to="/signup">
-            Sign Up
-          </Button>
-        </Grid>
-      </Grid>
-      </Box>
-      </Paper>
-      </Grid>
-      </div>
-    </>
+    </Grid>
   );
 }
