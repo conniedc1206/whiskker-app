@@ -1,4 +1,5 @@
 class MeowMailsController < ApplicationController
+    skip_before_action :authenticate_user
 
     # GET "/meow_mails"
 
