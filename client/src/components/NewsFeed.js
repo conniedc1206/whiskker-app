@@ -12,6 +12,7 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import LinearProgress from '@mui/material/LinearProgress';
+import PostForNewsFeed from './PostForNewsFeed.js';
 
 //Material UI
 const ExpandMore = styled((props) => {
@@ -32,6 +33,7 @@ export default function NewsFeed({currentUser}) {
   // const [loading, setLoading] = useState(true)
 
   const { friends, meow_posts } = currentUser
+  
   // Material UI, Heart on and off
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const handleExpandClick = () => {
@@ -51,7 +53,8 @@ export default function NewsFeed({currentUser}) {
       }
   })
   }, []);
-
+  
+  
   // for each friend's user_id, map through allPosts and filter out the ones that are matching the friend's user_id
   function friendsPosts() {
     let idsArray = []
@@ -66,7 +69,7 @@ export default function NewsFeed({currentUser}) {
     }
     return postsArray.flat()
   }
-  console.log(friendsPosts())
+  // console.log(friendsPosts())
 
   // if no meowposts shown, render add friends to view posts
 
@@ -79,56 +82,10 @@ export default function NewsFeed({currentUser}) {
     {loading ? <LinearProgress /> : null}
       </Box> */}
       <Box bgcolor="white" flex={4} p={5}>
-        <Stack alignItems="center" >
+        <Stack alignItems="center">
           {currentUser.friends.length > 0 ? friendsPosts().sort((a, b) => b.id - a.id)
           ?.map(post => (
-            <Card key={post.id} sx={{ width: "35%", margin: 4 }}>
-            <CardHeader
-              avatar={
-                <Avatar alt={post.user.id} src={post.user.purrfile_picture} sx={{ width: 56, height: 56 }}/>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <EditIcon /> 
-                  |   
-                  <DeleteForeverIcon />
-                </IconButton>
-              }
-              title={post.user.username}
-              subheader={post.created_at.slice(0, 10)}
-            />
-            <CardMedia
-              component="img"
-              height="20%"
-              image={post.image}
-              alt={post.description}
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                {post.description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-              <Checkbox {...label} icon={<FavoriteIcon />} checkedIcon={<Favorite sx={{ color: "red" }} />} /> {post.like}
-              </IconButton>
-              <IconButton aria-label="share">
-              </IconButton>
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent>
-                  {/* <NewsFeedComments/> */}
-              </CardContent>
-            </Collapse>
-          </Card>
+            <PostForNewsFeed key={post.id} post={post} currentUser={currentUser}/>
           )) 
           : 
           <Box container style={{ display: "inline-block" }}>

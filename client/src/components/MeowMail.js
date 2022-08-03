@@ -1,18 +1,19 @@
 import { useState, React } from 'react';
-import { Grid, Typography, Paper, List, ListItem, Avatar, Divider, ListItemText, ListItemIcon, TextField, Fab } from "@mui/material";
-// import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography, Paper, List, ListItem, Avatar, Divider, ListItemText, ListItemIcon, TextField, Fab, Button } from "@mui/material";
 
-// const useStyles = makeStyles({
-//     table: {
-//         minWidth: 650,
-//     },
-// })
-
-export default function MeowMail ({posts}) {
-
+export default function MeowMail ({currentUser}) {
     const [commentTxt, setCommentTxt] = useState("");
+    console.log(currentUser)
 
+    const { full_name, purrfile_picture, friends, sent_messages, received_messages } = currentUser
 
+    // take current user and render catpanions list on left
+
+    // default have the first catpanion' message open on the right
+
+    // take each meow_mail and look for meow_mails with sender_id or recipient_id as currentUser.id || selected friend's id
+
+    //do this for each friend
     return (
         <div>
             <Grid container marginTop={10} marginBottom={5} align="center">
@@ -23,31 +24,29 @@ export default function MeowMail ({posts}) {
             <Grid container component={Paper} sx={{ width: "100%", height: "80vh" }}>
                 <Grid item xs={3} sx={{ borderRight: "1px solid #e0e0e0"}}>
                     <List>
-                        <ListItem button key="Harrison">
+                        <ListItem button key={full_name}>
                             <ListItemIcon>
-                                <Avatar alt="Harrison" src="https://m.media-amazon.com/images/I/71kNvlpS9GL._AC_SS450_.jpg"/>
+                                <Avatar alt={full_name} src={purrfile_picture}/>
                             </ListItemIcon>
-                            <ListItemText primary="Harry"></ListItemText>
+                            <ListItemText primary={full_name}></ListItemText>
                         </ListItem>
                     </List>
                     <Divider />
-                    <Grid item xs={12} style={{ padding: "10px" }}>
+                    {/* <Grid item xs={12} style={{ padding: "10px" }}>
                         <TextField id="outlined-basic-email" label="Search" variant="outlined" fullWidth/>
-                    </Grid>
+                    </Grid> */}
                     <Divider />
                     <List>
-                        <ListItem button key="Connie">
-                            <ListItemIcon>
-                                <Avatar alt="Connie" src="https://images.theconversation.com/files/443350/original/file-20220131-15-1ndq1m6.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C3354%2C2464&q=45&auto=format&w=926&fit=clip" />
-                            </ListItemIcon>
-                            <ListItemText primary="Connie">Connie</ListItemText>
-                        </ListItem>
-                        <ListItem button key="Emiley">
-                            <ListItemIcon>
-                                <Avatar alt="Emiley" src="https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2020-07/kitten-510651.jpg?h=f54c7448&itok=ZhplzyJ9"/>
-                            </ListItemIcon>
-                            <ListItemText primary="Emiley">Emiley</ListItemText>
-                        </ListItem>
+                        {friends.map(friend => (
+                            <Button onClick={(e) => console.log("Clicked!")}>
+                                <ListItem key={friend.id} >
+                                    <ListItemIcon>
+                                        <Avatar alt={friend.full_name} src={friend.purrfile_picture}  />
+                                    </ListItemIcon>
+                                    <ListItemText primary={friend.full_name}></ListItemText>
+                                </ListItem>
+                            </Button>
+                        ))}
                     </List>
                 </Grid>
             <Grid item xs={9}>
