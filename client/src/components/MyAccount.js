@@ -1,55 +1,52 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Grid, TextField, Button, InputAdornment, IconButton } from "@mui/material"
+import { Grid, TextField, Button, InputAdornment } from "@mui/material"
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
 
-function MyAccount({currentUser}) {
-    const {username, purrfile_picture, full_name, bio } = currentUser
-
-    const defaultValues = {
-      full_name: full_name,
-      purrfile_picture: purrfile_picture,
-      username: username,
-      bio: bio
-    };
-
-    const [formValues, setFormValues] = useState(defaultValues);
+function MyAccount({currentUser, setCurrentUser}) {
+    const [updateUser, setUpdateUser] = useState({
+      bio: currentUser.bio,
+      friends: [currentUser.friends],
+      full_name: currentUser.full_name,
+      meow_posts: [currentUser.meow_posts],
+      purrfile_picture: currentUser.purrfile_picture,
+      username: currentUser.username
+    });
 
     const navigate = useNavigate()
   
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setFormValues({
-        ...formValues,
+      setUpdateUser({
+        ...updateUser,
         [name]: value,
       });
     };
-
     // console.log(formValues)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formValues)
         const configObj = {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
           },
-          body: JSON.stringify({...formValues})
+          body: JSON.stringify({...updateUser})
         };
         fetch(`/users/${currentUser.id}`, configObj)
           .then((res) => res.json())
-          .then((data) => 
-          navigate('/me')
+          .then((data) => {
+            setCurrentUser(data)
+            navigate('/me')
+          } 
         )
-        setFormValues(defaultValues);
+        setUpdateUser(updateUser);
       };
     
     return (
         <div>
-        
         <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
     backgroundSize: "cover",
     backgroundAttachment: "fixed-right",
@@ -81,7 +78,7 @@ function MyAccount({currentUser}) {
                     name="full_name"
                     label="Full Name"
                     type="text"
-                    value={formValues.full_name}
+                    value={updateUser.full_name}
                     onChange={handleChange}
                     
                   />
@@ -100,7 +97,7 @@ function MyAccount({currentUser}) {
                   name="username"
                   label="Username"
                   type="text"
-                  value={formValues.username}
+                  value={updateUser.username}
                   onChange={handleChange}
                   
                 />
@@ -120,7 +117,7 @@ function MyAccount({currentUser}) {
                 name="purrfile_picture"
                 label="Purrfile Picture"
                 type="text"
-                value={formValues.purrfile_picture}
+                value={updateUser.purrfile_picture}
                 onChange={handleChange}
                 
               />
@@ -139,7 +136,7 @@ function MyAccount({currentUser}) {
                   name="bio"
                   label="Bio"
                   type="text"
-                  value={formValues.bio}
+                  value={updateUser.bio}
                   onChange={handleChange}
                   
                 />

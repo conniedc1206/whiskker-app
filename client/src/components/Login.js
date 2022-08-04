@@ -51,8 +51,6 @@ export default function Login({ setCurrentUser}) {
     .then((user) => {
       // set the state of the user
       setCurrentUser(user)
-      // store the user in localStorage
-      localStorage.setItem('user', JSON.stringify(user))
       // route user to their newsfeed
       navigate("/newsfeed")
     })
