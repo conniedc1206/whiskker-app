@@ -54,7 +54,7 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item, currentUse
                                 setFriendDisabled(currentState => !currentState)
                             }
                         }>{friendDisabled ? "Friend added <3" : "Add friend"}</Button>
-                }
+                    }
                 </Grid>
             </Grid>
         </Item>

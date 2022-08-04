@@ -53,7 +53,8 @@ function CatpanionsList( { currentUser, search, users, catpanions } ) {
             loggedInUser={loggedInUser}
             />
         ))
-        : allUsers()
+        : 
+        allUsers()
         }      
     </Stack>
   )
