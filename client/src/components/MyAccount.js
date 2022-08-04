@@ -57,7 +57,7 @@ function MyAccount({currentUser}) {
     height: "100%",
     position: "absolute", 
     backgroundRepeat: "no-repeat",
-    opacity: "60%" }}>
+    }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
         <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%"}}>
           <form onSubmit={handleSubmit}>

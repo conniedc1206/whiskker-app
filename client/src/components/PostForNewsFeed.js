@@ -67,13 +67,12 @@ export default function PostForNewsFeed({post, currentUser}) {
 
   return (
     <>
-    <Card key={post.id} sx={{ width: "40%", margin: 3 }}>
+    <Card key={post.id} sx={{ width: "40vw", margin: 3 }}>
             <CardHeader
               avatar={
                 <Avatar alt={post.user.id} src={post.user.purrfile_picture} sx={{ width: 56, height: 56 }}/>
               }
               title={post.user.username}
-              subheader={post.created_at.slice(0, 10)}
             />
             <CardMedia
               component="img"
@@ -92,10 +91,11 @@ export default function PostForNewsFeed({post, currentUser}) {
                 onClick={handleAddLike}
                 name="like"
                 id="like"
-                value={post.like} 
+                value={post.like}
+                sx={{ height: "3vh" }}
               >
               <Checkbox {...label} 
-              icon={<FavoriteIcon />} 
+              icon={<FavoriteIcon sx={{ height: "3vh" }}/>} 
               checkedIcon={<Favorite sx={{ color: "red" }} />} 
               /> {likeCount}
               </Button>

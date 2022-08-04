@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import { Grid } from "@mui/material"
+import { Grid, Box } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 
 function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
@@ -27,20 +27,30 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
                 <Grid item marginLeft="2%">
                     {friendIdsArray.includes(user.id) ? 
                     <>    
-                        <Button variant="contained" disabled={searchDisabled} sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } component={RouterLink} to="/messaging">Message</Button>
-                        <Button variant="contained" disabled={searchDisabled} sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={
-                            function handleDeleteFriend(){
-                                const catpanionToDelete = catpanions?.find(catpanion => {
-                                    if ((catpanion.user_id === loggedInUser.id) && (catpanion.friend_id === user.id)){
-                                        return catpanion.id
-                                    }
-                                })
-                                fetch(`/catpanions/${catpanionToDelete.id}`, {method: "DELETE"})
-                                setSearchDisabled(currentState => !currentState)
-                            }
+                        <Button variant="contained" 
+                            disabled={searchDisabled} 
+                            sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } 
+                            component={RouterLink} 
+                            to="/messaging"
+                        >Message</Button>
+                        <Button variant="contained" 
+                            disabled={searchDisabled} 
+                            sx={ { borderRadius: 28, backgroundColor: "#33691e" } } 
+                            onClick={
+                                function handleDeleteFriend(){
+                                    const catpanionToDelete = catpanions?.find(catpanion => {
+                                        if ((catpanion.user_id === loggedInUser.id) && (catpanion.friend_id === user.id)){
+                                            return catpanion.id
+                                        }
+                                    })
+                                    fetch(`/catpanions/${catpanionToDelete.id}`, {method: "DELETE"})
+                                    setSearchDisabled(currentState => !currentState)
+                                }
                         }>Remove Friend</Button>
                     </>
                     :
+                    <>
+                        {friendDisabled ? <Button variant="contained" sx={ { borderRadius: 28, mr: 2 } } component={RouterLink} to="/messaging">Message</Button> : null}
                         <Button variant="contained" disabled={friendDisabled} sx={ { borderRadius: 28 } } onClick={
                             function handleAddFriend(){
                                 fetch(`/catpanions`, {
@@ -53,7 +63,8 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
                                 })
                                 setFriendDisabled(currentState => !currentState)
                             }
-                        }>{friendDisabled ? "Friend added <3" : "Add friend"}</Button>
+                        }>{friendDisabled ? "Added <3" : "Add friend"}</Button>
+                    </>
                     }
                 </Grid>
             </Grid>

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
+    
     has_many :meow_posts
 
     has_many :comments
-    # has_many :meow_posts, through: :comments
     has_many :commented_posts, through: :comments, source: :meow_post
     # example of how to use alias name: has_many :alias_name, through: :model_name, source: :initial_name
 
@@ -10,12 +10,6 @@ class User < ApplicationRecord
 
     has_many :catpanions
     has_many :friends, through: :catpanions
-
-    # has_many :requested_relationships, foreign_key: "requestor_id", class_name: 'Catpanion'
-    # has_many :requestees, through: :requested_relationships
-
-    # has_many :requestees_of_relationships, foreign_key: "requestee_id", class_name: 'Catpanion'
-    # has_many :requestors, through: :requestees_of_relationships
 
     # MEOWMAILS
 

@@ -74,17 +74,16 @@ export default function Login({ setCurrentUser}) {
     height: "100%",
     position: "absolute", 
     backgroundRepeat: "no-repeat", 
-    opacity: "92%" }}>
+    }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
-        <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%" }}>
+        <Grid style={{ width: "350px", height: "350px", margin: "auto", marginTop: "13%" }}>
           <form onSubmit={handleSubmit}>
             <Grid container 
               alignItems="center"
-              justify="center"
               direction="column"
-              margin="auto">
+              >
               <h2 style={{ marginTop: "5%" }}>Log in to Whiskker!</h2>
-              <Grid item margin="auto" marginTop="5%" marginBottom="2%">
+              <Grid item margin="auto" marginTop="5%" marginBottom="2.5%">
                 <TextField
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
@@ -103,7 +102,7 @@ export default function Login({ setCurrentUser}) {
                 required
                 />
               </Grid>
-              <Grid item margin="auto" marginBottom="2%" >
+              <Grid item margin="auto" marginBottom="2.5%" >
                 <TextField
                   InputLabelProps={{ shrink: true }}
                   InputProps={{

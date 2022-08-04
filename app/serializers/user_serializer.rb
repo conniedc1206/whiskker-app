@@ -3,3 +3,5 @@ class UserSerializer < ActiveModel::Serializer
 
   # created_at
 end
+
+

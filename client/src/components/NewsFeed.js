@@ -41,20 +41,6 @@ export default function NewsFeed({currentUser}) {
     setExpanded(!expanded);
   };
 
-  // useEffect(()=>{
-  //   fetch(`/users/${id}`)
-  //   .then(res => {
-  //       if(res.ok){
-  //           res.json().then(user => {
-  //               setUser(user)
-  //               setLoading(false)
-  //           })
-  //       }else {
-  //           res.json().then(data => setErrors(data.error))
-  //       }
-  //   })
-  // },[])
-
   // requesting all meow_posts
   useEffect(() => {
     fetch("/meow_posts")
