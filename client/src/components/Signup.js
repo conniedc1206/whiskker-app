@@ -67,17 +67,16 @@ export default function Signup( { setCurrentUser }) {
     height: "100%",
     position: "absolute", 
     backgroundRepeat: "no-repeat",
-    opacity: "92%" }}>
+    }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
-        <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%" }}>
+        <Grid style={{ width: "300px", height: "300px", margin: "auto", marginTop: "13%" }}>
           <form onSubmit={handleSubmit}>
             <Grid container 
             alignItems="center"
-            justify="center"
             direction="column"
-            margin="auto">
+            >
               <h2 style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>Sign up for Whiskker!</h2>
-              <Grid item margin="auto" marginTop="5%" marginBottom="2%">
+              <Grid item marginTop="5%" marginBottom="2%">
               <TextField
                     InputLabelProps={{ shrink: true }}
                     InputProps={{
@@ -96,7 +95,7 @@ export default function Signup( { setCurrentUser }) {
                     required
                   />
               </Grid>
-              <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }} >
+              <Grid item style={{ marginTop: "2.5%", marginBottom: "2.5%" }} >
                 <TextField
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
@@ -115,26 +114,7 @@ export default function Signup( { setCurrentUser }) {
                   required
                 />
               </Grid>
-              {/* <Grid item margin="auto" marginBottom="2%">
-              <TextField
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <InsertPhotoIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                id="purrfile_picture"
-                name="purrfile_picture"
-                label="Purrfile Picture"
-                type="text"
-                value={formData.purrfile_picture || ""}
-                onChange={handleChange}
-                required
-              />
-            </Grid> */}
-            <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
+            <Grid item style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
               <TextField
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
@@ -159,12 +139,13 @@ export default function Signup( { setCurrentUser }) {
                 required
               />
             </Grid>
-            <Grid item margin="auto" style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
+            <Grid item style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>
               <Button type="submit" variant="contained" sx={{backgroundColor:"#33691e"}}>
                 CREATE FREE ACCOUNT
               </Button>
             </Grid>
-            <Grid item margin="auto" marginBottom="5%">
+            <Grid item marginBottom="5%">
+            <h5>Already have an account?</h5>
             <Button
               type="submit"
               variant="contained"

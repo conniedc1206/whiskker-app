@@ -39,7 +39,7 @@ const handleLogOut = () => {
     <AppBar position="sticky" sx={{backgroundColor:"#33691e"}}>
         <StyledToolbar>
           <Typography variant="h6" sx={{ display: {xs: "none", sm:"block" } }}>
-            Whiskker App
+            Whiskker
             </Typography>
               <Pets sx={{ display: { xs: "block", sm: "none" } }} />
           <Icons>

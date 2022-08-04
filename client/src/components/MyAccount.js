@@ -48,14 +48,14 @@ function MyAccount({currentUser, setCurrentUser}) {
     return (
         <div>
         <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
-            backgroundSize: "cover",
-            backgroundAttachment: "fixed-right",
-            width: "100%",
-            height: "100%",
-            position: "absolute", 
-            backgroundRepeat: "no-repeat",
-            opacity: "60%" }}>
-        <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed-right",
+    width: "100%",
+    height: "100%",
+    position: "absolute", 
+    backgroundRepeat: "no-repeat",
+    }}>
+      <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
         <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%"}}>
           <form onSubmit={handleSubmit}>
             <Grid container 
