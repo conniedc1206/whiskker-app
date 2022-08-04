@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from "react";
-import { Fab, Tooltip, Button, Modal, Box, Typography, styled, TextField, Avatar, Stack, IconButton } from "@mui/material";
-import { Add, PhotoCamera } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
+import { Fab, Tooltip, Button, Modal, Box, Typography, styled, TextField, Avatar, Stack, InputAdornment } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { GiCat } from 'react-icons/gi';
 
 
 //Material UI
@@ -26,12 +27,15 @@ const defaultValues = {
     like: 0,
 }
 
-export default function CreatePost({ currentUser, user }) {
+export default function CreatePost({ currentUser, addPost }) {
     const [open, setOpen] = useState(false);
+    const [postValues, setPostValues] = useState(defaultValues);
+    // const [userPosts, setUserPosts] = useState(meow_posts)
+    const [reloadPage, setReloadPage] = useState(false);
 
-    const [postValues, setPostValues] = useState (defaultValues);
- let id;
     const navigate = useNavigate()
+
+    const { purrfile_picture, bio, full_name, created_at, meow_posts } = currentUser
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,12 +43,10 @@ export default function CreatePost({ currentUser, user }) {
             ...postValues,
             [name]: value
         })
-        console.log(postValues)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(postValues)
         const configObj = {
             method: "POST",
             headers: {
@@ -54,12 +56,17 @@ export default function CreatePost({ currentUser, user }) {
             body: JSON.stringify({...postValues, user_id: currentUser.id}),
           };
           fetch("/meow_posts", configObj)
-            .then((res) => res.json())
-            .then((data) => navigate(`/me/${data}`)
-            (console.log(data)))
-            // `/users/${data.meow_post}`)
-
+          .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            throw new Error('Could not create post. Try Again!');
+          })
+          .then((newPost) => addPost(newPost))
         setPostValues(defaultValues);
+        setOpen(false)
+        setReloadPage((currentState) => !currentState)
+        window.location.reload(reloadPage)  
     }
 
     return (
@@ -79,40 +86,48 @@ export default function CreatePost({ currentUser, user }) {
       >
         <Box width={500} height={280} bgcolor="white" borderRadius={3} p={8}>
             <Typography variant="h5" color="black" textAlign="center">
-            What's on Your Mind?
+            Create A New Post
             </Typography>
         <UserBox>
-            <Avatar src="https://m.media-amazon.com/images/I/71kNvlpS9GL._AC_SS450_.jpg"
+            <Avatar alt={full_name} src={purrfile_picture}
             sx={{ width: 60, height: 60 }}
             />
-                <Typography fontWeight={900} variant="span">Sally Cat
+                <Typography fontWeight={900} variant="span">{full_name}
                 </Typography>
         </UserBox>
+            <Stack direction="row" mt={2} mb={3} gap={1}>
+                <TextField
+                    InputLabelProps={{ shrink: true }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <GiCat/>
+                        </InputAdornment>
+                      ),
+                    }}
+                id="image"
+                name="image"
+                label="Add A Photo"
+                type="text"
+                value={postValues.image}
+                onChange={handleChange}
+                required
+                />
+            </Stack>
             <TextField
                 sx={{ width: "100%" }}
                 name="description"
                 id="description"
                 multiline
                 rows={3}
-                placeholder="Add description here"
+                placeholder="Add a description"
                 variant="standard"
                 value={postValues.description}
                 onChange={handleChange}
+                required
                 />
-            <Stack direction="row" mt={2} mb={3} gap={1}>
-                <IconButton color="success" aria-label="upload picture" component="label">
-                    <input
-                    name="image"
-                    hidden accept="image/*" 
-                    // type="file"
-                    value={postValues.image}
-                    onChange={handleChange}
-                    />
-                    <PhotoCamera display="center" />
-                </IconButton>
-            </Stack>
             <Stack>
-                <Button color="success"  display="center">POST</Button>
+                <Button onClick={handleSubmit}color="success"  display="center">POST</Button>
             </Stack>
         </Box>
       </CustomModal>

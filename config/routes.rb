@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :catpanions, only: [:index, :create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   resources :meow_posts
-  resources :users, except: [:update] # Potentially add update
+  resources :users
   
   # custom routes
   post "/login", to: "sessions#create"
