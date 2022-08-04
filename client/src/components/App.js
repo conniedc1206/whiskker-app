@@ -25,13 +25,15 @@ function App() {
     }
   }, []);
 
+  // fetch request to current user that uses session id to get user
+
   useEffect(() => {
     fetch("/catpanions")
       .then(res => res.json())
       .then(setCatpanions)
   }, [])
 
-  console.log(catpanions)
+  
   
   return (
     <div className="App">
@@ -39,7 +41,7 @@ function App() {
       <Routes>
         <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed currentUser={currentUser}/> : <Login updateUser={updateUser}/>} />
         <Route path="signup" element={<Signup updateUser={updateUser}/>} />
-        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser}/>} />
+        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser} catpanions={catpanions} setCatpanions={setCatpanions} />} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
         <Route path="messaging" element={<MeowMail currentUser={currentUser}/>}/>
       </Routes>
