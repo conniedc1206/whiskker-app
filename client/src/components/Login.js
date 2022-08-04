@@ -14,7 +14,7 @@ const defaultValues = {
   password: "",
 };
 
-export default function Login({ updateUser }) {
+export default function Login({ setCurrentUser}) {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [showPassword, setShowPassword] = useState(false)
@@ -50,7 +50,7 @@ export default function Login({ updateUser }) {
     })
     .then((user) => {
       // set the state of the user
-      updateUser(user)
+      setCurrentUser(user)
       // store the user in localStorage
       localStorage.setItem('user', JSON.stringify(user))
       // route user to their newsfeed

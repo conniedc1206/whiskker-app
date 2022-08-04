@@ -4,7 +4,7 @@ import { Pets, Home, Message } from "@mui/icons-material";
 import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem } from "@mui/material"
 
 
-export default function Navbar ({updateUser}) {
+export default function Navbar ({setCurrentUser, currentUser}) {
 
 // Material UI
 const [open, setOpen] = useState(false)
@@ -17,7 +17,7 @@ const handleLogOut = () => {
   fetch('/logout', {
     method: 'DELETE'
   })
-  updateUser(false)
+  setCurrentUser(false)
   localStorage.clear();
   navigate("/")
 };
@@ -52,7 +52,7 @@ const handleLogOut = () => {
             <Badge color="primary" component={RouterLink} to="/messaging">
                 <Message/>
             </Badge>
-                <Avatar src="https://m.media-amazon.com/images/I/71kNvlpS9GL._AC_SS450_.jpg"
+                <Avatar src={currentUser.purrfile_picture}
                 onClick={e=>setOpen(true)}
                 />
           </Icons>
@@ -73,8 +73,8 @@ const handleLogOut = () => {
           horizontal: 'right',
         }}
       >
-        <MenuItem component={RouterLink} to="/me"> Profile </MenuItem>
-        <MenuItem>My account</MenuItem>
+        <MenuItem component={RouterLink} to="/me" > Profile </MenuItem>
+        <MenuItem component={RouterLink} to="/myaccount">My account</MenuItem>
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </AppBar>

@@ -1,5 +1,6 @@
 import { useState, React } from 'react';
 import { Grid, Typography, Paper, List, ListItem, Avatar, Divider, ListItemText, ListItemIcon, TextField, Fab, Button } from "@mui/material";
+import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 
 export default function MeowMail ({currentUser}) {
     const [commentTxt, setCommentTxt] = useState("");
@@ -9,11 +10,14 @@ export default function MeowMail ({currentUser}) {
 
     // take current user and render catpanions list on left
 
-    // default have the first catpanion' message open on the right
+    const handleMessageClick = (e) => {
+        // find all messages between currentUser and friend.id
+        console.log("clicked")
+        //sort through all currentUser's sent and received messages 
+        //display all filtered meow_mail sorted by meow_mail's id
+    }
 
     // take each meow_mail and look for meow_mails with sender_id or recipient_id as currentUser.id || selected friend's id
-
-    //do this for each friend
     return (
         <div>
             <Grid container marginTop={10} marginBottom={5} align="center">
@@ -38,7 +42,7 @@ export default function MeowMail ({currentUser}) {
                     <Divider />
                     <List>
                         {friends.map(friend => (
-                            <Button onClick={(e) => console.log("Clicked!")}>
+                            <Button onClick={handleMessageClick}>
                                 <ListItem key={friend.id} >
                                     <ListItemIcon>
                                         <Avatar alt={friend.full_name} src={friend.purrfile_picture}  />

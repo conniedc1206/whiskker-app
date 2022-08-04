@@ -1,22 +1,40 @@
-import React, { useEffect } from "react";
-import CreatePost from "./CreatePost.js"
-import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
-import { ClassNames } from "@emotion/react";
-// import ProfileNavBar from "./ProfileNavBar.js";
+import React, { useEffect, useState } from "react";
 import PostForProfile from "./PostForProfile";
+import CreatePost from "./CreatePost"
 
-// create PostForProfile for currentUser.meow_posts
-// create EditPostForProfile
+import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
 
 
 export default function Profile ({ currentUser }) {
-    // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const [posts, setPosts] = useState([]) //keep track of our logged in user's posts dynamically
+    
+    const { username, purrfile_picture, bio, full_name, created_at } = currentUser
 
-    const cards = currentUser.meow_posts
+    //changes to user's account needs to reflect on the profile? add a state for logged in user in app?
 
-   
-    console.log(currentUser)
+    //fetch user's meow_posts
+    useEffect(() => {
+        fetch(`/users/${currentUser.id}`)
+        .then(res => res.json())
+        .then(userObj => 
+            setPosts(userObj.meow_posts)
+        )
+    }, [])
+
+    // callback functions for posts CRUD
+     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
+
+    const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
+  
+    // const updateProduction = (updatedProduction) => setProductions(current => {
+    //   return current.map(production => {
+    //    if(production.id === updatedProduction.id){
+    //      return updatedProduction
+    //    } else {
+    //      return production
+    //    }
+    //   })
+    // })
 
 
     return (
@@ -26,46 +44,38 @@ export default function Profile ({ currentUser }) {
                 <Container maxwidth="sm" style={{ marginTop: "100px" }} display="center" alignItems='center'
                              justifyContent='center'>
                               
-                    <Avatar src="https://m.media-amazon.com/images/I/71kNvlpS9GL._AC_SS450_.jpg" sx={{ width: 150, height: 150 }} align="center" >
-                        </Avatar>
+                    <Avatar src={purrfile_picture} sx={{ width: 150, height: 150 }} align="center" >
+                    </Avatar>
                     <Typography variant="h5" style={{ marginTop: "15px" }}color="text.secondary" gutterBottom>
-                        UserName
+                    Username: {username}
                     </Typography>
                     <Typography variant="h6" style={{ marginTop: "10px" }} color="text.secondary">
-                        Full Name
+                    Full Name: {full_name}
                      </Typography>
-
-                        <Typography variant="h6" style={{ marginTop: "10px" }}color="text.secondary" paragraph>
-                        Descripton / Bio
-                        </Typography>
-                       
-                    <div>
-                        <Grid container spacing={2} justify="center" style={{ marginTop: "30px" }}>
-                            <Grid item>
-                                <Button variant="contained" color="success">
-                                    Posts
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button variant="contained" color="success">
-                                    Catpanions
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </Container>
+                    <Typography variant="h6" style={{ marginTop: "10px" }}color="text.secondary" paragraph>
+                    Bio: {bio}
+                    </Typography> 
+            <div>
+                <Grid container spacing={2} justify="center" style={{ marginTop: "30px" }}>
+                    <Grid item>
+                        Number of MeowPosts:
+                    </Grid>
+                    <Grid item>
+                        Number of Catpanions:
+                    </Grid>
+                </Grid>
             </div>
+            </Container>
+        </div>
             <Container style={{ marginTop: "5%" }}>
                 <Grid container spacing={1}>
-                {cards?.map((card) =>( 
-                    // <Grid item key={card} xs={12} sm={6} md={4} container spacing={3}>
-                    <PostForProfile key={card.id} card={card} />
-                // </Grid>
+                {posts?.map((post) =>( 
+                    <PostForProfile key={post.id} post={post} deletePost={deletePost}/>
                 ))}
                 </Grid>
             </Container>
-        </main>
-        <CreatePost />
-        </>
+    </main>
+    <CreatePost currentUser={currentUser} addPost={addPost} />
+    </>
     )
 }

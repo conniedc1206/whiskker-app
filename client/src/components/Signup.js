@@ -14,7 +14,7 @@ const defaultValues = {
   password: ''
 };
 
-export default function Signup( { updateUser }) {
+export default function Signup( { setCurrentUser }) {
     const [formData, setFormData] = useState(defaultValues)
     const [errors, setErrors] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +39,7 @@ export default function Signup( { updateUser }) {
           if(res.ok){
               res.json().then(user => {
                   // set current user here
-                  updateUser(user)
+                  setCurrentUser(user)
                   // store the user in localStorage
                   localStorage.setItem('user', JSON.stringify(user))
                   // need to route user to their newsfeed page/home page
