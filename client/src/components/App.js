@@ -8,40 +8,40 @@ import Catpanions from './Catpanions.js';
 import Profile from "./Profile.js";
 import Signup from "./Signup.js";
 import MeowMail from "./MeowMail.js";
+import MyAccount from "./MyAccount.js"
+import { GiConsoleController } from 'react-icons/gi';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(false)
-  const [catpanions, setCatpanions] = useState([])
-
-  // function for updating currentUser
-  const updateUser = (user) => setCurrentUser(user)
+  const [currentUser, setCurrentUser] = useState(false) //keep track of our logged in local storage
+  const [catpanions, setCatpanions] = useState([]) //keep track of our logged in user's catpanions LIVE
 
   // to check if there's a user logged in each time the App loads
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
-      updateUser(foundUser);
+      setCurrentUser(foundUser);
     }
   }, []);
 
+  // to fetch all catpanions
   useEffect(() => {
     fetch("/catpanions")
       .then(res => res.json())
       .then(setCatpanions)
   }, [])
+  // console.log(catpanions)
 
-  console.log(catpanions)
-  
   return (
     <div className="App">
-      {currentUser ? <NavBar updateUser={updateUser}/> : <SignupNavBar />}
+      {currentUser ? <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser}/> : <SignupNavBar />}
       <Routes>
-        <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed currentUser={currentUser}/> : <Login updateUser={updateUser}/>} />
-        <Route path="signup" element={<Signup updateUser={updateUser}/>} />
+        <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed currentUser={currentUser}/> : <Login setCurrentUser={setCurrentUser}/>} />
+        <Route path="signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
         <Route path="mycatpanions" element={<Catpanions currentUser={currentUser}/>} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
         <Route path="messaging" element={<MeowMail currentUser={currentUser}/>}/>
+        <Route path="myaccount" element={<MyAccount currentUser={currentUser}/>}/>
       </Routes>
     </div>
   );

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress';
 import NewsFeedComments from "./NewsFeedComments.js";
 import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Stack, Grid } from '@mui/material';
@@ -39,6 +40,20 @@ export default function NewsFeed({currentUser}) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  // useEffect(()=>{
+  //   fetch(`/users/${id}`)
+  //   .then(res => {
+  //       if(res.ok){
+  //           res.json().then(user => {
+  //               setUser(user)
+  //               setLoading(false)
+  //           })
+  //       }else {
+  //           res.json().then(data => setErrors(data.error))
+  //       }
+  //   })
+  // },[])
 
   // requesting all meow_posts
   useEffect(() => {

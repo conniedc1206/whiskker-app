@@ -88,13 +88,16 @@ export default function PostForNewsFeed({post, currentUser}) {
             </CardContent>
             <CardActions disableSpacing>
               <Button 
-                aria-label="add to favorites"
+                aria-label="add like"
                 onClick={handleAddLike}
                 name="like"
                 id="like"
                 value={post.like} 
               >
-              <Checkbox {...label} icon={<FavoriteIcon />} checkedIcon={<Favorite sx={{ color: "red" }} />} /> {likeCount}
+              <Checkbox {...label} 
+              icon={<FavoriteIcon />} 
+              checkedIcon={<Favorite sx={{ color: "red" }} />} 
+              /> {likeCount}
               </Button>
               
               {/* <ExpandMore

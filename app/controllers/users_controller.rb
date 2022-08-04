@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_user, only: [:create, :index, :show, :destroy]
+    skip_before_action :authenticate_user
 
     # GET "/users"
     # Fetch this route to see a list of all users that currently have an account
@@ -29,11 +29,12 @@ class UsersController < ApplicationController
     end
 
     # Update a user, potentially in account settings
-    # def update
-    #     user = User.find(params[:id])
-    #     user.update!(user_params)
-    #     render json: user, status: :accepted
-    # end
+    # PATCH "/users/:id"
+    def update
+        user = User.find(params[:id])
+        user.update!(user_params)
+        render json: user, status: :accepted
+    end
 
     # DESTROY "/users/:id"
     # Delete account (user) in account settings

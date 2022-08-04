@@ -1,25 +1,9 @@
 import * as React from 'react';
 import { useState } from "react";
-import NewsFeedComments from "./NewsFeedComments.js";
-import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Button, Modal, Grid   } from '@mui/material';
-import { Favorite  } from '@mui/icons-material'
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Card, CardMedia, CardContent, CardActions, Typography, IconButton, Button, Modal, TextField, Stack, InputAdornment } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-
-
-//Material UI
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import { GiCat } from 'react-icons/gi';
 
 const style = {
     position: 'absolute',
@@ -33,20 +17,42 @@ const style = {
     p: 4,
   };
 
-export default function PostForNewsFeed() {
-    //Material UI
-  const [expanded, setExpanded] = useState(false);
-
-  const [open, setOpen] = React.useState(false);
+export default function PostForProfile({post, deletePost}) {
+  // delete button
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
-  // Material UI, Heart on and off
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  //edit button
+  const [postValues, setPostValues] = useState({})
+  const [editOpen, setEditOpen] = useState(false);
+  const handleEditOpen = () => setEditOpen(true);
+  const handleEditClose = () => setEditOpen(false);
+
+  const { description, image, created_at, user_id} = post
+  
+  //DELETE
+  function handleDeleteClick () {
+    console.log(post.id)
+    // make a delete fetch request and update the backend as well as the post state
+    fetch(`/meow_posts/${post.id}`, {
+      method: 'DELETE'
+    })
+    deletePost(post.id)
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPostValues({
+        ...postValues,
+        [name]: value
+    })
+    console.log(postValues)
+  }
+
+const handleEditSubmit = () => {
+  console.log("clicked")
+}
 
   return (
     <Box bgcolor="white" flex={4} p={5}>
@@ -54,38 +60,91 @@ export default function PostForNewsFeed() {
       <CardMedia
         component="img"
         height="20%"
-        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cute-cat-photos-1593441022.jpg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*"
-        alt="cat image"
+        image={image}
+        alt={description}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Add Description Here
+          {description}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {created_at}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-        <Checkbox {...label} icon={<FavoriteIcon />} checkedIcon={<Favorite sx={{ color: "red" }} />} />
-        </IconButton>
+
         <IconButton aria-label="edit">
-        <EditIcon /> 
+        <EditIcon onClick={handleEditOpen}  /> 
         </IconButton>
-        <IconButton aria-label="delete">
+        {/* //Modal for Edit */}
+        <Modal
+          open={editOpen}
+          onClose={handleEditClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          >
+       <Box sx={style} textAlign='center' borderRadius={2} p={8}>
+            <Typography variant="h5" color="black" textAlign="center">
+            Edit Post
+            </Typography>
+    <form onSubmit={handleEditSubmit}>
+            <TextField
+                sx={{ width: "100%" }}
+                name="description"
+                id="description"
+                multiline
+                rows={3}
+                placeholder="Add description here"
+                variant="standard"
+                value={postValues.description}
+                onChange={handleChange}
+                />
+            <Stack direction="row" mt={2} mb={3} gap={1}>
+                <IconButton color="success" aria-label="upload picture" component="label">
+                <TextField
+                    InputLabelProps={{ shrink: true }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <GiCat/>
+                        </InputAdornment>
+                      ),
+                    }}
+                id="image"
+                name="image"
+                label="Purrfile Image URL"
+                type="text"
+                value={postValues.image || ""}
+                onChange={handleChange}
+                required
+                />
+                </IconButton>
+            </Stack>
+            <Stack>
+                <Button onSubmit={handleEditSubmit} color="success"  display="center">EDIT</Button>
+            </Stack>
+            </form>
+        </Box>
+        </Modal>
+
+        <IconButton aria-label="delete" >
         <Button onClick={handleOpen}> <DeleteForeverIcon /></Button>
         </IconButton>
-<Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box sx={style} textAlign='center' borderRadius={2} p={8}>
-    <Typography id="modal-modal-title" variant="h7" component="h2">
-      Are you sure you want to delete?
-    </Typography>
-    <Button sx={{ margin: 2 }} variant="outlined">Yes</Button>
-    <Button sx={{ margin: 2 }} variant="outlined">No</Button>
-  </Box>
-</Modal>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style} textAlign='center' borderRadius={2} p={8}>
+            <Typography id="modal-modal-title" variant="h7" component="h2">
+              Are you sure you want to delete?
+            </Typography>
+            <Button sx={{ margin: 2 }} variant="outlined" onClick={handleDeleteClick}>Yes</Button>
+            <Button sx={{ margin: 2 }} variant="outlined" onClick={handleClose}>No</Button>
+          </Box>
+        </Modal>
         </CardActions>
     </Card>
     </Box>
