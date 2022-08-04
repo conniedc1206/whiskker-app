@@ -24,7 +24,6 @@ function App() {
     }
   }, []);
 
-  // to fetch all catpanions
   useEffect(() => {
     fetch("/catpanions")
       .then(res => res.json())
@@ -38,7 +37,7 @@ function App() {
       <Routes>
         <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed currentUser={currentUser}/> : <Login setCurrentUser={setCurrentUser}/>} />
         <Route path="signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
-        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser}/>} />
+        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser} catpanions={catpanions} setCatpanions={setCatpanions} />} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
         <Route path="messaging" element={<MeowMail currentUser={currentUser}/>}/>
         <Route path="myaccount" element={<MyAccount currentUser={currentUser}/>}/>

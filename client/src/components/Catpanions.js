@@ -1,5 +1,3 @@
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material"
 import CatpanionsSearch from "./CatpanionsSearch.js"
@@ -10,7 +8,7 @@ import CatpanionsList from "./CatpanionsList.js"
 
 //
 
-function Catpanions( { currentUser } ) {
+function Catpanions( { currentUser, catpanions, setCatpanions } ) {
 
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState([])
@@ -24,7 +22,7 @@ function Catpanions( { currentUser } ) {
     return (
         <Grid container style={{ display: "inline-block", width: "80%", margin: "auto", justifyContent: "space-evenly" }}>
             <CatpanionsSearch setSearch={setSearch} search={search} />
-            <CatpanionsList currentUser={currentUser} search={search} users={users} />
+            <CatpanionsList currentUser={currentUser} search={search} users={users} catpanions={catpanions} setCatpanions={setCatpanions}/>
         </Grid>
     )
 }

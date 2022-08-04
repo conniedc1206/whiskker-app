@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Stack from "@mui/material/Stack";
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { Grid, Paper } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 import { styled } from "@mui/material/styles";
+import CatpanionItem from "./CatpanionItem.js"
 
-function CatpanionsList( { currentUser, search, users } ) {
+function CatpanionsList( { currentUser, search, users, catpanions } ) {
+
+    const [loggedInUser, setLoggedInUser] = useState({})
+    const [searchDisabled, setSearchDisabled] = useState(false)
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -15,10 +19,16 @@ function CatpanionsList( { currentUser, search, users } ) {
         color: theme.palette.text.secondary
         }));
 
+    useEffect(() => {
+        fetch(`/users/${currentUser.id}`)
+        .then(res => res.json())
+        .then(setLoggedInUser)
+    }, [catpanions])
+
     function allUsers(){
 
         const friendIdsArray = []
-        currentUser.friends?.map(friend => {
+        loggedInUser.friends?.map(friend => {
             return friendIdsArray.push(friend.id)
         })
         
@@ -26,7 +36,12 @@ function CatpanionsList( { currentUser, search, users } ) {
         const matchingUsers = users.filter(user => {
             return user.full_name.toLowerCase().includes(search.toLowerCase())
         })
+
+        console.log(matchingUsers)
+        console.log(allUsersArray)
+
         allUsersArray = matchingUsers
+
         const renderUsers = allUsersArray?.map(user => {
             return <Item key={user.id}>
                         <Grid container>
@@ -40,11 +55,32 @@ function CatpanionsList( { currentUser, search, users } ) {
                             <Grid item marginLeft="2%">
                                 {friendIdsArray.includes(user.id) ? 
                                 <>    
-                                    <Button variant="contained" sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } component={RouterLink} to="/messaging">Message</Button>
-                                    <Button variant="contained" sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={() => console.log(user.id)}>Unfriend</Button>
-                                </>    
+                                    <Button variant="contained" disabled={searchDisabled} sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } component={RouterLink} to="/messaging">Message</Button>
+                                    <Button variant="contained" disabled={searchDisabled} sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={
+                                        function handleDeleteFriend(){
+                                            const catpanionToDelete = catpanions?.find(catpanion => {
+                                                if ((catpanion.user_id === loggedInUser.id) && (catpanion.friend_id === user.id)){
+                                                    return catpanion.id
+                                                }
+                                            })
+                                            fetch(`/catpanions/${catpanionToDelete.id}`, {method: "DELETE"})
+                                            setSearchDisabled(currentState => !currentState)
+                                        }
+                                    }>{searchDisabled ? "Friend Removed" : "Unfriend"}</Button>
+                                </>
                                 :
-                                <Button variant="contained" sx={ { borderRadius: 28 } }>Add Friend</Button>
+                                    <Button variant="contained" sx={ { borderRadius: 28 } } onClick={
+                                        function handleAddFriend(){
+                                            fetch(`/catpanions`, {
+                                                method: 'POST',
+                                                headers: {
+                                                    "Accept": "application/json",
+                                                    "Content-Type": "application/json"
+                                                },
+                                                body: JSON.stringify({user_id: currentUser.id, friend_id: user.id}),
+                                            })
+                                        }
+                                    }>Add Friend</Button>
                             }
                             </Grid>
                         </Grid>
@@ -52,9 +88,6 @@ function CatpanionsList( { currentUser, search, users } ) {
         })
         return renderUsers
     }
-
-    // IF the ID of the person searched for MATCHES any of the IDs in IDSARRAY,
-    // render message and unfriend button, otherwise, render add friend button
 
   return (
     <Stack 
@@ -64,25 +97,15 @@ function CatpanionsList( { currentUser, search, users } ) {
         spacing={2}
         width="75%"
         marginLeft="5%">
-        {search === "" ? currentUser.friends?.map(friend => (
-            <Item>
-                <Grid container>
-                    <Grid item>
-                        <Avatar alt="Remy Sharp" src={friend.purrfile_picture} sx={{ width: "95px", height: "95px" }}/>
-                    </Grid>
-                    <Grid item sx={{ flexGrow: 1 }}>
-                        <h2>{friend.full_name}</h2>
-                        <h4>@{friend.username}</h4>
-                    </Grid>
-                    <Grid item marginLeft="2%">
-                        <Button variant="contained" sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } component={RouterLink} to="/messaging">Message</Button>
-                        <Button variant="contained" sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={() => console.log(friend.id)}>Unfriend</Button>
-                    </Grid>
-                </Grid>
-            </Item>
+        {search === "" ? loggedInUser.friends?.map(friend => (
+            <CatpanionItem key={friend.id}
+            friend={friend} 
+            Item={Item} 
+            catpanions={catpanions} 
+            loggedInUser={loggedInUser}
+            />
         ))
-        :
-            allUsers()
+        : allUsers()
         }      
     </Stack>
   )
