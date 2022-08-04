@@ -1,15 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PostForProfile from "./PostForProfile";
 import CreatePost from "./CreatePost"
 
 import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
 
 
-// create PostForProfile for currentUser.meow_posts
-// create EditPostForProfile
+export default function Profile ({ currentUser }) {
+    const [posts, setPosts] = useState([]) //keep track of our logged in user's posts dynamically
+    
+    const { username, purrfile_picture, bio, full_name, created_at } = currentUser
 
-export default function Profile ({ currentUser, addPost, deletePost, posts}) {
-    const { username, purrfile_picture, bio, full_name, created_at, meow_posts } = currentUser
+    //changes to user's account needs to reflect on the profile? add a state for logged in user in app?
+
+    //fetch user's meow_posts
+    useEffect(() => {
+        fetch(`/users/${currentUser.id}`)
+        .then(res => res.json())
+        .then(userObj => 
+            setPosts(userObj.meow_posts)
+        )
+    }, [])
+
+    // callback functions for posts CRUD
+     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
+
+    const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
+  
+    // const updateProduction = (updatedProduction) => setProductions(current => {
+    //   return current.map(production => {
+    //    if(production.id === updatedProduction.id){
+    //      return updatedProduction
+    //    } else {
+    //      return production
+    //    }
+    //   })
+    // })
+
 
     return (
         <>

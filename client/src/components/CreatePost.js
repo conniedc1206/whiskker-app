@@ -30,12 +30,11 @@ const defaultValues = {
 export default function CreatePost({ currentUser, addPost }) {
     const [open, setOpen] = useState(false);
     const [postValues, setPostValues] = useState(defaultValues);
-    // const [userPosts, setUserPosts] = useState(meow_posts)
     const [reloadPage, setReloadPage] = useState(false);
 
     const navigate = useNavigate()
 
-    const { purrfile_picture, bio, full_name, created_at, meow_posts } = currentUser
+    const { purrfile_picture, bio, full_name, created_at} = currentUser
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -65,8 +64,8 @@ export default function CreatePost({ currentUser, addPost }) {
           .then((newPost) => addPost(newPost))
         setPostValues(defaultValues);
         setOpen(false)
-        setReloadPage((currentState) => !currentState)
-        window.location.reload(reloadPage)  
+        // setReloadPage((currentState) => !currentState)
+        // window.location.reload(reloadPage)  
     }
 
     return (

@@ -14,7 +14,7 @@ const defaultValues = {
   password: "",
 };
 
-export default function Login({ setCurrentUser }) {
+export default function Login({ setCurrentUser}) {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const [showPassword, setShowPassword] = useState(false)
