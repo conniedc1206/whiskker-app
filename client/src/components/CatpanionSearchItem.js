@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import { Grid } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 
-function CatpanionSearchItem( { user, catpanions, loggedInUser, Item, currentUser } ) {
+function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
 
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [friendDisabled, setFriendDisabled] = useState(false)
@@ -49,7 +49,7 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item, currentUse
                                         "Accept": "application/json",
                                         "Content-Type": "application/json"
                                     },
-                                    body: JSON.stringify({user_id: currentUser.id, friend_id: user.id}),
+                                    body: JSON.stringify({user_id: loggedInUser.id, friend_id: user.id}),
                                 })
                                 setFriendDisabled(currentState => !currentState)
                             }

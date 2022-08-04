@@ -8,6 +8,7 @@ import CatpanionSearchItem from "./CatpanionSearchItem.js"
 function CatpanionsList( { currentUser, search, users, catpanions } ) {
 
     const [loggedInUser, setLoggedInUser] = useState({})
+    // page reload
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
@@ -32,7 +33,11 @@ function CatpanionsList( { currentUser, search, users, catpanions } ) {
         allUsersArray = matchingUsers
 
         const renderUsers = allUsersArray?.map(user => {
-            return <CatpanionSearchItem key={user.id} user={user} catpanions={catpanions} loggedInUser={loggedInUser} Item={Item} currentUser={currentUser}/>
+            return <CatpanionSearchItem key={user.id} 
+            user={user} 
+            catpanions={catpanions} 
+            loggedInUser={loggedInUser} 
+            Item={Item} />
             })
         return renderUsers
         }
