@@ -63,7 +63,6 @@ const handleLogOut = () => {
         // anchorEl={anchorEl}
         open={open}
         onClose={e=>setOpen(false)}
-        // onClose={handleClose}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -73,8 +72,8 @@ const handleLogOut = () => {
           horizontal: 'right',
         }}
       >
-        <MenuItem component={RouterLink} to="/me" > Profile </MenuItem>
-        <MenuItem component={RouterLink} to="/myaccount">My account</MenuItem>
+        <MenuItem component={RouterLink} to="/me" onClick={e=>setOpen(false)}> Profile </MenuItem>
+        <MenuItem component={RouterLink} to="/myaccount" onClick={e=>setOpen(false)}>My account</MenuItem>
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </AppBar>

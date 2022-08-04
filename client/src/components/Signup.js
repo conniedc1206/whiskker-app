@@ -40,8 +40,6 @@ export default function Signup( { setCurrentUser }) {
               res.json().then(user => {
                   // set current user here
                   setCurrentUser(user)
-                  // store the user in localStorage
-                  localStorage.setItem('user', JSON.stringify(user))
                   // need to route user to their newsfeed page/home page
                   navigate("/newsfeed")
               })
@@ -60,13 +58,7 @@ export default function Signup( { setCurrentUser }) {
     const handleClickShowPassword = () => {
         setShowPassword((currentState) => !currentState);
     };
-
-
-
-    // Material UI 
-    // const theme = createTheme();
-    // const paperStyle = {padding: 20, height: "70vh", width:500, margin: "100px auto"  }
-
+    
   return (
     <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
     backgroundSize: "cover",

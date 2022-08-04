@@ -16,4 +16,11 @@ class SessionsController < ApplicationController
   def destroy
     session.delete(:user_id)
   end
+
+  # get logged in user's object
+  # GET '/me'
+  def show
+    user = User.find(session[:user_id])
+    render json: user, serializer: UserShowSerializer, status: :ok
+  end
 end

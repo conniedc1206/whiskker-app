@@ -9,27 +9,36 @@ import Profile from "./Profile.js";
 import Signup from "./Signup.js";
 import MeowMail from "./MeowMail.js";
 import MyAccount from "./MyAccount.js"
-import { GiConsoleController } from 'react-icons/gi';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(false) //keep track of our logged in local storage
-  const [catpanions, setCatpanions] = useState([]) //keep track of our logged in user's catpanions LIVE
+  //set our logged in user with login or signup
+  const [currentUser, setCurrentUser] = useState(false) 
+  //keep track of our logged in user's catpanions during current session
+  const [catpanions, setCatpanions] = useState([]) 
 
-  // to check if there's a user logged in each time the App loads
+  // fetch the logged in user when app loads if there is a user
+  // error handling: if can't find user from session, go to logged in
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setCurrentUser(foundUser);
-    }
+    fetch("/me")
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('No User Found.');
+    })
+    .then((user) => {
+      // set the state of the user
+      setCurrentUser(user)
+    })
   }, []);
+  
+  console.log(currentUser)
 
   useEffect(() => {
     fetch("/catpanions")
       .then(res => res.json())
       .then(setCatpanions)
   }, [])
-  // console.log(catpanions)
 
   return (
     <div className="App">
@@ -40,7 +49,7 @@ function App() {
         <Route path="mycatpanions" element={<Catpanions currentUser={currentUser} catpanions={catpanions} setCatpanions={setCatpanions} />} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
         <Route path="messaging" element={<MeowMail currentUser={currentUser}/>}/>
-        <Route path="myaccount" element={<MyAccount currentUser={currentUser}/>}/>
+        <Route path="myaccount" element={<MyAccount currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>
       </Routes>
     </div>
   );
