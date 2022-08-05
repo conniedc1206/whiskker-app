@@ -8,7 +8,7 @@ import CatpanionsList from "./CatpanionsList.js"
 
 //
 
-function Catpanions( { currentUser, catpanions, setCatpanions } ) {
+function Catpanions( { currentUser } ) {
 
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState([])
@@ -22,7 +22,7 @@ function Catpanions( { currentUser, catpanions, setCatpanions } ) {
     return (
         <Grid container style={{ display: "inline-block", width: "80%", margin: "auto", justifyContent: "space-evenly" }}>
             <CatpanionsSearch setSearch={setSearch} search={search} />
-            <CatpanionsList currentUser={currentUser} search={search} users={users} catpanions={catpanions} setCatpanions={setCatpanions}/>
+            <CatpanionsList currentUser={currentUser} search={search} users={users} />
         </Grid>
     )
 }
