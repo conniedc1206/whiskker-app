@@ -3,7 +3,6 @@ import { useNavigate,  Link as RouterLink } from 'react-router-dom'
 import { Pets, Home, Message } from "@mui/icons-material";
 import { AppBar, Toolbar, styled, Typography, Box, Badge, Avatar, Menu, MenuItem } from "@mui/material"
 
-
 export default function Navbar ({setCurrentUser, currentUser}) {
 
 // Material UI

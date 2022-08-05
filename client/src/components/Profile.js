@@ -6,40 +6,30 @@ import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/mate
 
 
 export default function Profile ({ currentUser }) {
-    const [posts, setPosts] = useState([]) //keep track of our logged in user's posts dynamically
+     //keep track of our logged in user's posts during this session
+    const [posts, setPosts] = useState(currentPosts => currentUser.meow_posts)
     
     const { username, purrfile_picture, bio, full_name, created_at } = currentUser
-
-    //changes to user's account needs to reflect on the profile? add a state for logged in user in app?
-
-    //fetch user's meow_posts
-    useEffect(() => {
-        fetch(`/users/${currentUser.id}`)
-        .then(res => res.json())
-        .then(userObj => 
-            setPosts(userObj.meow_posts)
-        )
-    }, [])
 
     // callback functions for posts CRUD
     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
 
     const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
-
-    // console.log(posts?.length)
-
-    // function numberOfPosts(){
-    //     let numberOfPosts = 0
-    //     for (let i = 0; i < currentUser.meow_posts.length)
-    //   }
+    // const updateProduction = (updatedProduction) => setProductions(current => {
+    //   return current.map(production => {
+    //    if(production.id === updatedProduction.id){
+    //      return updatedProduction
+    //    } else {
+    //      return production
+    //    }
+    //   })
+    // })
 
     return (
         <>
         <main>
             <div>
-                <Container maxwidth="sm" style={{ marginTop: "100px" }} display="center" alignItems='center'
-                             justifyContent='center'>
-                              
+                <Container maxwidth="sm" style={{ marginTop: "100px" }} display="center" alignItems='center' justifyContent='center'>
                     <Avatar src={purrfile_picture} sx={{ width: 150, height: 150 }} align="center" >
                     </Avatar>
                     <Typography variant="h5" style={{ marginTop: "15px" }}color="text.secondary" gutterBottom>
@@ -51,7 +41,7 @@ export default function Profile ({ currentUser }) {
                     <Typography variant="h6" style={{ marginTop: "10px" }}color="text.secondary" paragraph>
                     Bio: {bio}
                     </Typography> 
-            <div>
+            {/* <div>
                 <Grid container spacing={2} justify="center" style={{ marginTop: "30px" }}>
                     <Grid item>
                         Number of MeowPosts:
@@ -60,13 +50,13 @@ export default function Profile ({ currentUser }) {
                         Number of Catpanions:
                     </Grid>
                 </Grid>
-            </div>
+            </div> */}
             </Container>
         </div>
             <Container style={{ marginTop: "5%" }}>
                 <Grid container spacing={1}>
                 {posts?.map((post) =>( 
-                    <PostForProfile key={post.id} post={post} deletePost={deletePost}/>
+                    <PostForProfile key={post.id} post={post} deletePost={deletePost} currentUser={currentUser}/>
                 ))}
                 </Grid>
             </Container>

@@ -65,6 +65,7 @@ export default function Login({ setCurrentUser}) {
   };
   
   return (
+    <>
     <Grid style={{ display: "inline-block", backgroundImage: "url(https://i.imgur.com/m8NVI9B.png)",
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
@@ -140,5 +141,6 @@ export default function Login({ setCurrentUser}) {
         </Grid>
       </Grid>
     </Grid>
+    </>
   );
 }
