@@ -20,12 +20,7 @@ function App() {
   // error handling: if can't find user from session, go to logged in
   useEffect(() => {
     fetch("/me")
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      throw new Error('No User Found.');
-    })
+    .then(res => res.json())
     .then((user) => {
       // set the state of the user
       setCurrentUser(user)

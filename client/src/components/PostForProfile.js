@@ -17,19 +17,24 @@ const style = {
     p: 4,
   };
 
-export default function PostForProfile({post, deletePost}) {
+export default function PostForProfile({ currentUser, post, deletePost }) {
   // delete button
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   //edit button
-  const [postValues, setPostValues] = useState({})
+  const [editPostValues, setEditPostValues] = useState({
+    description: post.description, 
+    image: post.image,
+    like: post.like,
+    user_id: currentUser.id,
+  })
   const [editOpen, setEditOpen] = useState(false);
   const handleEditOpen = () => setEditOpen(true);
   const handleEditClose = () => setEditOpen(false);
 
-  const { description, image, created_at, user_id} = post
+  const { description, image, created_at } = post
   
   //DELETE
   function handleDeleteClick () {
@@ -43,16 +48,30 @@ export default function PostForProfile({post, deletePost}) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPostValues({
-        ...postValues,
+    setEditPostValues({
+        ...editPostValues,
         [name]: value
     })
-    console.log(postValues)
   }
 
-const handleEditSubmit = () => {
-  console.log("clicked")
-}
+  const handleEditSubmit = (e) => {
+    e.preventDefault()
+    console.log("submitted")
+    console.log(post.id)
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify({ ...editPostValues}),
+    };
+    fetch(`/meow_posts/${post.id}`, configObj)
+    .then(resp => resp.json())
+    .then(updatedPost => setEditPostValues(updatedPost))
+    
+  }
+  console.log(editPostValues)
 
   return (
     <Box bgcolor="white" flex={4} p={5}>
@@ -82,6 +101,7 @@ const handleEditSubmit = () => {
           onClose={handleEditClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          
           >
        <Box sx={style} textAlign='center' borderRadius={2} p={8}>
             <Typography variant="h5" color="black" textAlign="center">
@@ -94,9 +114,9 @@ const handleEditSubmit = () => {
                 id="description"
                 multiline
                 rows={3}
-                placeholder="Add description here"
+                placeholder="Add edited description here"
                 variant="standard"
-                value={postValues.description}
+                value={editPostValues.description}
                 onChange={handleChange}
                 />
             <Stack direction="row" mt={2} mb={3} gap={1}>
@@ -112,25 +132,23 @@ const handleEditSubmit = () => {
                     }}
                 id="image"
                 name="image"
-                label="Purrfile Image URL"
+                label="Edit Image URL"
                 type="text"
-                value={postValues.image || ""}
+                value={editPostValues.image}
                 onChange={handleChange}
-                required
                 />
                 </IconButton>
             </Stack>
             <Stack>
-                <Button onSubmit={handleEditSubmit} color="success"  display="center">EDIT</Button>
+                <Button color="success" display="center" onSubmit={handleEditSubmit} onClick={handleEditClose} >EDIT</Button>
             </Stack>
-            </form>
+        </form>
         </Box>
         </Modal>
 
-        <IconButton aria-label="delete" >
-        <Button onClick={handleOpen}> <DeleteForeverIcon /></Button>
+        <IconButton onClick={handleOpen} aria-label="delete" >
+        <Button> <DeleteForeverIcon /></Button>
         </IconButton>
-
         <Modal
           open={open}
           onClose={handleClose}
