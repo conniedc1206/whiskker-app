@@ -17,8 +17,7 @@ const style = {
     p: 4,
   };
 
-export default function PostForProfile({ currentUser, post, deletePost }) {
-
+export default function PostForProfile({ currentUser, post, deletePost, updatePost }) {
   // delete button
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -57,8 +56,6 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
 
   const handleEditSubmit = (e) => {
     e.preventDefault()
-    console.log("submitted")
-    console.log(post.id)
     const configObj = {
       method: "PATCH",
       headers: {
@@ -69,10 +66,13 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
     };
     fetch(`/meow_posts/${post.id}`, configObj)
     .then(resp => resp.json())
-    .then(updatedPost => setEditPostValues(updatedPost))
-    
+    .then(updatedPost => {
+      setEditPostValues(updatedPost)
+      updatePost(updatedPost)
+      setEditOpen(false)
+    })
   }
-  console.log(editPostValues)
+
 
   return (
     <Box bgcolor="white" flex={4} p={5}>
@@ -88,7 +88,7 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
           {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {created_at.slice(0, 10)}
+          {created_at}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -102,13 +102,12 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
           onClose={handleEditClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          
           >
        <Box sx={style} textAlign='center' borderRadius={2} p={8}>
             <Typography variant="h5" color="black" textAlign="center">
             Edit Post
             </Typography>
-    <form onSubmit={handleEditSubmit}>
+        <form onSubmit={handleEditSubmit}>
             <TextField
                 sx={{ width: "100%" }}
                 name="description"
@@ -141,7 +140,7 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
                 </IconButton>
             </Stack>
             <Stack>
-                <Button color="success" display="center" onSubmit={handleEditSubmit} onClick={handleEditClose} >EDIT</Button>
+                <Button color="success" display="center" onClick={handleEditSubmit}>EDIT</Button>
             </Stack>
         </form>
         </Box>

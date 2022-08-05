@@ -32,7 +32,7 @@ class MeowPostsController < ApplicationController
     def update
         meowpost = MeowPost.find(params[:id])
         meowpost.update!(meow_post_params)
-        render json: meowpost, serializer: MeowPostShowSerializer, render: :accepted
+        render json: meowpost, render: :accepted
     end
 
     # DELETE "/meow_posts/:id"

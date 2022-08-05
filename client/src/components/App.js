@@ -17,17 +17,13 @@ function App() {
   const [catpanions, setCatpanions] = useState([]) 
 
   // fetch the logged in user when app loads if there is a user
-  // error handling: if can't find user from session, go to logged in
   useEffect(() => {
     fetch("/me")
     .then(res => res.json())
     .then((user) => {
-      // set the state of the user
       setCurrentUser(user)
     })
   }, []);
-  
-  console.log(currentUser)
 
   useEffect(() => {
     fetch("/catpanions")
