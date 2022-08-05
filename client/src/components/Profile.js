@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PostForProfile from "./PostForProfile";
 import CreatePost from "./CreatePost"
-
-import { Avatar, Typography, Grid, Toolbar, Container, Button, } from "@mui/material";
-
+import { Avatar, Typography, Grid, Container} from "@mui/material";
 
 export default function Profile ({ currentUser }) {
      //keep track of our logged in user's posts during this session
@@ -15,15 +13,18 @@ export default function Profile ({ currentUser }) {
     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
 
     const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
-    // const updateProduction = (updatedProduction) => setProductions(current => {
-    //   return current.map(production => {
-    //    if(production.id === updatedProduction.id){
-    //      return updatedProduction
-    //    } else {
-    //      return production
-    //    }
-    //   })
-    // })
+
+    const updatePost = (updatedPost) => setPosts(current => {
+      return current.map(post => {
+       if(post.id === updatedPost.id){
+         return updatedPost
+       } else {
+         return post
+       }
+      })
+    })
+    // BUG: when page refreshes, the posts state becomes undefined
+    // console.log(posts)
 
     return (
         <>
@@ -41,22 +42,12 @@ export default function Profile ({ currentUser }) {
                     <Typography variant="h6" style={{ marginTop: "10px" }}color="text.secondary" paragraph>
                     Bio: {bio}
                     </Typography> 
-            {/* <div>
-                <Grid container spacing={2} justify="center" style={{ marginTop: "30px" }}>
-                    <Grid item>
-                        Number of MeowPosts:
-                    </Grid>
-                    <Grid item>
-                        Number of Catpanions:
-                    </Grid>
-                </Grid>
-            </div> */}
             </Container>
         </div>
             <Container style={{ marginTop: "5%" }}>
                 <Grid container spacing={1}>
                 {posts?.map((post) =>( 
-                    <PostForProfile key={post.id} post={post} deletePost={deletePost} currentUser={currentUser}/>
+                    <PostForProfile key={post.id} post={post} deletePost={deletePost} currentUser={currentUser} updatePost={updatePost}/>
                 ))}
                 </Grid>
             </Container>
