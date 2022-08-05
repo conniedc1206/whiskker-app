@@ -6,7 +6,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IoLogoOctocat } from 'react-icons/io';
 import { GiCat } from 'react-icons/gi';
 
-
 const defaultValues = {
   full_name: '',
   purrfile_picture: '',
@@ -60,14 +59,15 @@ export default function Signup( { setCurrentUser }) {
     };
     
   return (
-    <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed-right",
-    width: "100%",
-    height: "100%",
-    position: "absolute", 
-    backgroundRepeat: "no-repeat",
-    }}>
+    <>
+      <Grid style={{ display: "inline-block", backgroundImage: `url(https://i.imgur.com/m8NVI9B.png)`,
+      backgroundSize: "cover",
+      backgroundAttachment: "fixed-right",
+      width: "100%",
+      height: "100%",
+      position: "absolute", 
+      backgroundRepeat: "no-repeat",
+      }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
         <Grid style={{ width: "300px", height: "300px", margin: "auto", marginTop: "13%" }}>
           <form onSubmit={handleSubmit}>
@@ -162,5 +162,6 @@ export default function Signup( { setCurrentUser }) {
         </Grid>
       </Grid>
     </Grid>
+  </>
   )
 } 
