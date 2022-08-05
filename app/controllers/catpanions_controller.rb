@@ -14,12 +14,12 @@ class CatpanionsController < ApplicationController
     # NOT EXIST IN A CURRENT_USERS FRIENDS LIST ALREADY. If they exist, create will throw an error
 
     def create
-        if (@current_user.friends.ids.include?(params[:friend_id]))
-            render json: { error: "This cat is already your furriend" }, status: :forbidden
-        else
-            catpanion = Catpanion.create!(catpanion_params)
-            render json: catpanion, status: :created
-        end
+        # if (@current_user.friends.ids.include?(params[:friend_id]))
+        #     render json: { error: "This cat is already your furriend" }, status: :forbidden
+        # else
+        catpanion = Catpanion.create!(catpanion_params)
+        render json: catpanion, status: :created
+        # end
     end
 
     # DESTROY "/catpanions/:id"

@@ -56,14 +56,14 @@ function MyAccount({currentUser, setCurrentUser}) {
     backgroundRepeat: "no-repeat",
     }}>
       <Grid style={{ display: "inline-block", width: "100%", height: "100%" }}>
-        <Grid style={{ width: "25vw", height: "50vh", margin: "auto", marginTop: "13%"}}>
+        <Grid style={{ width: "300px", height: "300px", margin: "auto", marginTop: "13%"}}>
           <form onSubmit={handleSubmit}>
             <Grid container 
             alignItems="center"
             justify="center"
             direction="column"
             margin="auto">
-              <h2 style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>Edit My Whiskkers Account</h2>
+              <h3 style={{ marginTop: "2.5%", marginBottom: "2.5%" }}>Edit My Whiskkers Account</h3>
               <Grid item margin="auto" marginTop="5%" marginBottom="2%">
               <TextField
                     InputLabelProps={{ shrink: true }}

@@ -19,8 +19,6 @@ class User < ApplicationRecord
     has_many :received_messages, class_name: "MeowMail", foreign_key: "recipient_id"
     has_many :senders, through: :recieved_messages
 
-
-
     has_secure_password
     # Potentially add inclusions to this to make sure that username has only letters and numbers
     validates :username, presence: true, uniqueness: true, length: { maximum: 30 }

@@ -13,6 +13,7 @@ export default function Profile ({ currentUser }) {
 
     // callback functions for posts CRUD
     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
+
     const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
     // const updateProduction = (updatedProduction) => setProductions(current => {
     //   return current.map(production => {

@@ -4,13 +4,13 @@ import Avatar from '@mui/material/Avatar';
 import { Grid, Box } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 
-function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
+function CatpanionSearchItem( { user, catpanions, currentUser, Item } ) {
 
     const [searchDisabled, setSearchDisabled] = useState(false)
     const [friendDisabled, setFriendDisabled] = useState(false)
 
     const friendIdsArray = []
-    loggedInUser.friends?.map(friend => {   
+    currentUser.friends?.map(friend => {   
         return friendIdsArray.push(friend.id)
     })
   
@@ -39,7 +39,7 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
                             onClick={
                                 function handleDeleteFriend(){
                                     const catpanionToDelete = catpanions?.find(catpanion => {
-                                        if ((catpanion.user_id === loggedInUser.id) && (catpanion.friend_id === user.id)){
+                                        if ((catpanion.user_id === currentUser.id) && (catpanion.friend_id === user.id)){
                                             return catpanion.id
                                         }
                                     })
@@ -59,7 +59,7 @@ function CatpanionSearchItem( { user, catpanions, loggedInUser, Item } ) {
                                         "Accept": "application/json",
                                         "Content-Type": "application/json"
                                     },
-                                    body: JSON.stringify({user_id: loggedInUser.id, friend_id: user.id}),
+                                    body: JSON.stringify({user_id: currentUser.id, friend_id: user.id}),
                                 })
                                 setFriendDisabled(currentState => !currentState)
                             }

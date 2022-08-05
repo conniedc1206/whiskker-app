@@ -18,6 +18,7 @@ const style = {
   };
 
 export default function PostForProfile({ currentUser, post, deletePost }) {
+
   // delete button
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -87,7 +88,7 @@ export default function PostForProfile({ currentUser, post, deletePost }) {
           {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {created_at}
+          {created_at.slice(0, 10)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
