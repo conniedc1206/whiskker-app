@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostForProfile from "./PostForProfile";
 import CreatePost from "./CreatePost"
 import { Avatar, Typography, Grid, Container} from "@mui/material";
 
 export default function Profile ({ currentUser }) {
      //keep track of our logged in user's posts during this session
-    const [posts, setPosts] = useState(currentPosts => currentUser.meow_posts)
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+      if (currentUser) {
+        setPosts(currentUser.meow_posts)
+      }
+    }, [currentUser]);
     
     const { username, purrfile_picture, bio, full_name, created_at } = currentUser
 
@@ -23,8 +29,6 @@ export default function Profile ({ currentUser }) {
        }
       })
     })
-    // BUG: when page refreshes, the posts state becomes undefined
-    // console.log(posts)
 
     return (
         <>

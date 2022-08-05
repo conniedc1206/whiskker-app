@@ -38,7 +38,6 @@ export default function PostForProfile({ currentUser, post, deletePost, updatePo
   
   //DELETE
   function handleDeleteClick () {
-    console.log(post.id)
     // make a delete fetch request and update the backend as well as the post state
     fetch(`/meow_posts/${post.id}`, {
       method: 'DELETE'
