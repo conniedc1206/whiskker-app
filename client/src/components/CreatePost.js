@@ -55,17 +55,10 @@ export default function CreatePost({ currentUser, addPost }) {
             body: JSON.stringify({...postValues, user_id: currentUser.id}),
           };
           fetch("/meow_posts", configObj)
-          .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            throw new Error('Could not create post. Try Again!');
-          })
+          .then(res => res.json())
           .then((newPost) => addPost(newPost))
         setPostValues(defaultValues);
         setOpen(false)
-        // setReloadPage((currentState) => !currentState)
-        // window.location.reload(reloadPage)  
     }
 
     return (
