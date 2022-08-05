@@ -18,6 +18,7 @@ const style = {
   };
 
 export default function PostForProfile({post, deletePost}) {
+  
   // delete button
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -29,7 +30,7 @@ export default function PostForProfile({post, deletePost}) {
   const handleEditOpen = () => setEditOpen(true);
   const handleEditClose = () => setEditOpen(false);
 
-  const { description, image, created_at, user_id} = post
+  const { description, image, created_at } = post
   
   //DELETE
   function handleDeleteClick () {
@@ -50,9 +51,9 @@ export default function PostForProfile({post, deletePost}) {
     console.log(postValues)
   }
 
-const handleEditSubmit = () => {
-  console.log("clicked")
-}
+  const handleEditSubmit = () => {
+    console.log("clicked")
+  } 
 
   return (
     <Box bgcolor="white" flex={4} p={5}>
@@ -68,7 +69,7 @@ const handleEditSubmit = () => {
           {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {created_at}
+          {created_at.slice(0, 10)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

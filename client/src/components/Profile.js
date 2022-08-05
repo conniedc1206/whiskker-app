@@ -22,20 +22,16 @@ export default function Profile ({ currentUser }) {
     }, [])
 
     // callback functions for posts CRUD
-     const addPost = (newPost) => setPosts(posts => [...posts, newPost])
+    const addPost = (newPost) => setPosts(posts => [...posts, newPost])
 
     const deletePost = (id) => setPosts(current => current.filter(p => p.id !== id)) 
-  
-    // const updateProduction = (updatedProduction) => setProductions(current => {
-    //   return current.map(production => {
-    //    if(production.id === updatedProduction.id){
-    //      return updatedProduction
-    //    } else {
-    //      return production
-    //    }
-    //   })
-    // })
 
+    // console.log(posts?.length)
+
+    // function numberOfPosts(){
+    //     let numberOfPosts = 0
+    //     for (let i = 0; i < currentUser.meow_posts.length)
+    //   }
 
     return (
         <>

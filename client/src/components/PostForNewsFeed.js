@@ -67,7 +67,7 @@ export default function PostForNewsFeed({post, currentUser}) {
 
   return (
     <>
-    <Card key={post.id} sx={{ width: "40vw", margin: 3 }}>
+    <Card key={post.id} sx={{ width: "350px", margin: 3 }}>
             <CardHeader
               avatar={
                 <Avatar alt={post.user.id} src={post.user.purrfile_picture} sx={{ width: 56, height: 56 }}/>

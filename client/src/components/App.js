@@ -22,13 +22,8 @@ function App() {
     fetch("/me")
     .then(res => {
       if (res.ok) {
-        return res.json();
+        return res.json().then((user => setCurrentUser(user)));
       }
-      throw new Error('No User Found.');
-    })
-    .then((user) => {
-      // set the state of the user
-      setCurrentUser(user)
     })
   }, []);
   

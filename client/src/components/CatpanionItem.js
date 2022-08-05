@@ -4,13 +4,13 @@ import Avatar from '@mui/material/Avatar';
 import { Grid } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 
-function CatpanionItem( { Item, friend, catpanions, loggedInUser } ) {
+function CatpanionItem( { Item, friend, catpanions, currentUser } ) {
 
     const [disabled, setDisabled] = useState(false)
 
     function handleDeleteFriend(){
         const catpanionToDelete = catpanions?.find(catpanion => {
-            if ((catpanion.user_id === loggedInUser.id) && (catpanion.friend_id === friend.id)){
+            if ((catpanion.user_id === currentUser.id) && (catpanion.friend_id === friend.id)){
                 return catpanion.id
             }
         })
