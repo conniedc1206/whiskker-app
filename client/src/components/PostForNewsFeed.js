@@ -1,40 +1,37 @@
 import * as React from 'react';
 import { useState } from "react";
-import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Button, TextField, Stack  } from '@mui/material';
-import { CollectionsBookmarkOutlined, Favorite,   } from '@mui/icons-material'
+import { Checkbox, Card, CardHeader, CardMedia, CardContent, CardActions, Avatar, Typography, Button } from '@mui/material';
+import { Favorite } from '@mui/icons-material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 
 
 
 //Material UI
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+// const ExpandMore = styled((props) => {
+//   const { expand, ...other } = props;
+//   return <IconButton {...other} />;
+// })(({ theme, expand }) => ({
+//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+//   marginLeft: 'auto',
+//   transition: theme.transitions.create('transform', {
+//     duration: theme.transitions.duration.shortest,
+//   }),
+// }));
 
 export default function PostForNewsFeed({post, currentUser}) {
     //Material UI
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
   const [likeCount, setLikeCount] = useState(post.like)
   const [likeToggle, setLikeToggle] = useState(false)
-  const [commentTxt, setCommentTxt] = useState("");
-  const [commentThread, setCommentThread] = useState(post.comments)
+  // const [commentTxt, setCommentTxt] = useState("");
+  // const [commentThread, setCommentThread] = useState(post.comments)
 
   // Material UI, Heart on and off
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   //for someone else's post, other users can ONLY update like and comment
   //currentUser can only like 1 post ONCE??stay highlighted?

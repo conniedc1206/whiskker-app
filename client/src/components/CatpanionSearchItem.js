@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import { Grid, Box } from "@mui/material"
+import { Grid } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom'
 
 function CatpanionSearchItem( { user, catpanions, currentUser, Item } ) {
@@ -41,7 +41,8 @@ function CatpanionSearchItem( { user, catpanions, currentUser, Item } ) {
                                     const catpanionToDelete = catpanions?.find(catpanion => {
                                         if ((catpanion.user_id === currentUser.id) && (catpanion.friend_id === user.id)){
                                             return catpanion.id
-                                        }
+                                        } else
+                                        return undefined
                                     })
                                     fetch(`/catpanions/${catpanionToDelete.id}`, {method: "DELETE"})
                                     setSearchDisabled(currentState => !currentState)

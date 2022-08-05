@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
 import { Grid, Typography, Paper, List, ListItem, Avatar, Divider, ListItemText, ListItemIcon, TextField, Fab, Button } from "@mui/material";
-import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
+// import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 
 export default function MeowMail ({currentUser}) {
     const [commentTxt, setCommentTxt] = useState("");

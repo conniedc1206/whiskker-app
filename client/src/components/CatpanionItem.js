@@ -12,10 +12,11 @@ function CatpanionItem( { Item, friend, catpanions, currentUser } ) {
         const catpanionToDelete = catpanions?.find(catpanion => {
             if ((catpanion.user_id === currentUser.id) && (catpanion.friend_id === friend.id)){
                 return catpanion.id
-            }
+            } else
+            return undefined
         })
         fetch(`/catpanions/${catpanionToDelete.id}`, {method: "DELETE"})
-        setDisabled(currentState => !currentState)
+            setDisabled(currentState => !currentState)
     }
   
     return (
@@ -30,7 +31,8 @@ function CatpanionItem( { Item, friend, catpanions, currentUser } ) {
             </Grid>
             <Grid item marginLeft="2%">
                 <Button variant="contained" disabled={disabled} sx={ { borderRadius: 28, mr: 2, backgroundColor: "#33691e" } } component={RouterLink} to="/messaging">Message</Button>
-                <Button variant="contained" disabled={disabled} sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={handleDeleteFriend}>{disabled ? "Friend Removed" : "Unfriend"}</Button>
+                <Button variant="contained" disabled={disabled}
+                sx={ { borderRadius: 28, backgroundColor: "#33691e" } } onClick={handleDeleteFriend}>{disabled ? "Friend Removed" : "Unfriend"}</Button>
             </Grid>
         </Grid>
     </Item>

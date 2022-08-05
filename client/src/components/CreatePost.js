@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { Fab, Tooltip, Button, Modal, Box, Typography, styled, TextField, Avatar, Stack, InputAdornment } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { GiCat } from 'react-icons/gi';
@@ -30,11 +29,8 @@ const defaultValues = {
 export default function CreatePost({ currentUser, addPost }) {
     const [open, setOpen] = useState(false);
     const [postValues, setPostValues] = useState(defaultValues);
-    const [reloadPage, setReloadPage] = useState(false);
 
-    const navigate = useNavigate()
-
-    const { purrfile_picture, bio, full_name, created_at} = currentUser
+    const { purrfile_picture, full_name } = currentUser
 
     const handleChange = (e) => {
         const { name, value } = e.target;

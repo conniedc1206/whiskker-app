@@ -14,7 +14,6 @@ function App() {
   //set our logged in user with login or signup
   const [currentUser, setCurrentUser] = useState(false) 
   //keep track of our logged in user's catpanions during current session
-  const [catpanions, setCatpanions] = useState([]) 
 
   // fetch the logged in user when app loads if there is a user
   useEffect(() => {
@@ -25,19 +24,13 @@ function App() {
     })
   }, []);
 
-  useEffect(() => {
-    fetch("/catpanions")
-      .then(res => res.json())
-      .then(setCatpanions)
-  }, [])
-
   return (
     <div className="App">
       {currentUser ? <NavBar setCurrentUser={setCurrentUser} currentUser={currentUser}/> : <SignupNavBar />}
       <Routes>
         <Route path={currentUser ? "/newsfeed" : "/"} element={currentUser ? <NewsFeed currentUser={currentUser}/> : <Login setCurrentUser={setCurrentUser}/>} />
         <Route path="signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
-        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser} catpanions={catpanions} setCatpanions={setCatpanions} />} />
+        <Route path="mycatpanions" element={<Catpanions currentUser={currentUser} />} />
         <Route path="me" element={<Profile currentUser={currentUser}/>}/>
         <Route path="messaging" element={<MeowMail currentUser={currentUser}/>}/>
         <Route path="myaccount" element={<MyAccount currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>

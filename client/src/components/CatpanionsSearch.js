@@ -19,9 +19,9 @@ function CatpanionsSearch( { search, setSearch } ) {
                 value={search}
                 onChange={handleChange}
                 className="text"
-                label="Add New Catpanions!"
+                label="Search by full name"
                 variant="outlined"
-                placeholder="Search..."
+                placeholder="Search by full name"
                 size="small"
                 />
                 <IconButton type="submit" aria-label="search">

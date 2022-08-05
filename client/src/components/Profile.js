@@ -7,7 +7,7 @@ export default function Profile ({ currentUser }) {
      //keep track of our logged in user's posts during this session
     const [posts, setPosts] = useState(currentPosts => currentUser.meow_posts)
     
-    const { username, purrfile_picture, bio, full_name, created_at } = currentUser
+    const { username, purrfile_picture, bio, full_name } = currentUser
 
     // callback functions for posts CRUD
     const addPost = (newPost) => setPosts(posts => [...posts, newPost])

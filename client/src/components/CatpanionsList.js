@@ -5,10 +5,17 @@ import { styled } from "@mui/material/styles";
 import CatpanionItem from "./CatpanionItem.js"
 import CatpanionSearchItem from "./CatpanionSearchItem.js"
 
-function CatpanionsList( { currentUser, search, users, catpanions } ) {
+function CatpanionsList( { currentUser, search, users } ) {
 
     // const [loggedInUser, setLoggedInUser] = useState({})
     // page reload
+    const [catpanions, setCatpanions] = useState([])
+
+    useEffect(() => {
+        fetch("/catpanions")
+          .then(res => res.json())
+          .then(setCatpanions)
+      }, [])
 
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Checkbox, styled, Card, CardHeader, CardMedia, CardContent, CardActions, Collapse, Avatar, Typography, IconButton, Stack, Grid, Link } from '@mui/material';
+import { Box, Stack, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import PostForNewsFeed from './PostForNewsFeed.js';
 
