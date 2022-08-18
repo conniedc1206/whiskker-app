@@ -1,5 +1,5 @@
 # Phase 5 Project: Whiskker App
-![Whiskker App](https://i.imgur.com/AxoSr1V.png)
+![Whiskker App](https://i.imgur.com/DoBfUkT.png)
 
 ## Description
 
