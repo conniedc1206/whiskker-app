@@ -56,8 +56,11 @@ Our goal was to build a React/Ruby on Rails application while simulating a profe
 
 * Fork and clone our [repository](https://github.com/conniedc1206/book-club-cafe-app) onto your local environment:
     * Install the dependencies by running: bundle install & npm install --prefix client
-    * In the project directory, you can run the app in the development mode: npm start –prefix client & rails s (in a separate terminal)
-    * This will run your server on port http://localhost:4000. Check it out in the browser to make sure your server works!
+    * In the project directory, you can run the app in the development mode: 
+         * create db: rails db:create
+         * run migrations and seed data: rails db:migrate db:seed
+         * run servers: npm start –prefix client & rails s (in a separate terminal)
+         * This will run your server on port http://localhost:4000. Check it out in the browser to make sure your server works!
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
