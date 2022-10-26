@@ -9,16 +9,17 @@ Whiskker is a React/Rails social media app that helps cat users build a communit
 
 ## Technologies/Skills
 
-- React.js
-- Ruby on Rails
+- React.js 18.2.0
+- Ruby 2.7.4
+- Rails 6.1.3
 - Postgresql
 - Object-Oriented Design
 - Domain Modeling
 - Debugging: Postman, byebug, Application Tab in the Dev Tools
 - RESTful API endpoints
-- Material UI
+- Material UI 5.9.2
 - Github
-- Heroku CLI
+- Heroku-20
 
 ## Goals
 Our goal was to build a React/Ruby on Rails application while simulating a professional work environment by:
