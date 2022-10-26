@@ -6,6 +6,7 @@
 Whiskker is a React/Rails social media app that helps cat users build a community with other cats, share their lives with Meow Posts, and communicate with one another using Meow Mail.
 
 [DEMO](https://whiskker-app.herokuapp.com/)
+Guest username: demo / Guest password: demo
 
 ## Technologies/Skills
 
