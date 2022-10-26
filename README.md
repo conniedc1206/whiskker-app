@@ -17,7 +17,7 @@ Whiskker is a React/Rails social media app that helps cat users build a communit
 - Domain Modeling
 - Debugging: Postman, byebug, Application Tab in the Dev Tools
 - RESTful API endpoints
-- Material UI 5.9.2
+- Material UI
 - Github
 - Heroku-20
 
